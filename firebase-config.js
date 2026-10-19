@@ -1,10 +1,17 @@
-// Pega aquí los datos de tu app web de Firebase (Configuración del proyecto > Tus apps > Configuración del SDK).
-// Estos datos no son secretos: la seguridad la dan las reglas de Firestore.
-window.FIREBASE_CONFIG = {
-  apiKey: "PEGA_AQUI",
-  authDomain: "PEGA_AQUI",
-  projectId: "PEGA_AQUI",
-  storageBucket: "PEGA_AQUI",
-  messagingSenderId: "PEGA_AQUI",
-  appId: "PEGA_AQUI"
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyB53EeSXZiAZ_72quEg6Mh_1GZGSZcETkI",
+  authDomain: "italiano-78f74.firebaseapp.com",
+  projectId: "italiano-78f74",
+  storageBucket: "italiano-78f74.firebasestorage.app",
+  messagingSenderId: "84431810571",
+  appId: "1:84431810571:web:0e417d959f4c1eadb0970e"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
