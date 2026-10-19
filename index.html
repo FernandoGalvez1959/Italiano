@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F6B45">
+<title>Italiano Básico A1</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{
+  --bg:#EEF2EC; --card:#FFFFFF; --ink:#17231C; --muted:#4F5F55; --line:#CBD6CC;
+  --basil:#1F6B45; --basil-d:#154D32; --tomato:#B3261E; --ok:#1F6B45; --okbg:#DDF0E4; --badbg:#F8DEDB; --sun:#F1D58A;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#111A15; --card:#1B2820; --ink:#EDF3EE; --muted:#A9B9AF; --line:#34483B;
+    --basil:#5DBB8A; --basil-d:#8AD6AF; --tomato:#FF8A80; --ok:#7FD6A3; --okbg:#1F3D2B; --badbg:#4A2420; --sun:#6B5A25; }
+}
+*{box-sizing:border-box}
+html{font-size:19px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;
+  padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+main{max-width:680px;margin:0 auto;padding:1rem 1rem 3rem}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 .5rem}
+h1{font-size:1.9rem} h2{font-size:1.45rem;margin-top:1.6rem} h3{font-size:1.15rem}
+p{margin:.5rem 0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.8rem}
+.btn{font:inherit;font-weight:600;min-height:3rem;padding:.6rem 1.1rem;border-radius:.8rem;border:2px solid var(--basil);background:var(--basil);color:#fff;cursor:pointer}
+@media (prefers-color-scheme: dark){.btn{color:#0E1A13}}
+.btn.alt{background:transparent;color:var(--basil)}
+.btn.small{min-height:2.4rem;padding:.3rem .8rem;font-size:.9rem}
+.btn:focus-visible,.row:focus-visible,.opt:focus-visible,.vocab:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.hero{background:var(--basil);color:#fff;border-radius:1rem;padding:1.2rem 1.1rem;margin-bottom:1rem}
+@media (prefers-color-scheme: dark){.hero{color:#0E1A13}}
+.hero h1{margin:0 0 .2rem}
+.hero p{margin:0;opacity:.95}
+.bar{height:.6rem;background:rgba(255,255,255,.3);border-radius:1rem;margin-top:.8rem;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--sun);border-radius:1rem}
+.row{display:flex;gap:.9rem;align-items:center;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:.9rem;margin-bottom:.7rem;cursor:pointer}
+.row[disabled]{opacity:.55;cursor:not-allowed}
+.num{flex:none;width:2.6rem;height:2.6rem;border-radius:50%;background:var(--bg);border:2px solid var(--basil);display:grid;place-items:center;font-weight:700;color:var(--basil)}
+.row.done .num{background:var(--basil);color:#fff}
+@media (prefers-color-scheme: dark){.row.done .num{color:#0E1A13}}
+.row b{display:block;font-size:1.05rem}
+.row small{color:var(--muted);font-size:.85rem}
+.card{background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:1rem;margin:.7rem 0}
+.tip{border-left:6px solid var(--sun);background:var(--card);border-radius:.5rem;padding:.7rem .9rem;margin:.6rem 0}
+.vocab{display:flex;justify-content:space-between;align-items:center;gap:.6rem;width:100%;font:inherit;color:inherit;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:.9rem;padding:.7rem .9rem;margin-bottom:.5rem;cursor:pointer}
+.vocab .it{font-weight:700;font-size:1.1rem;color:var(--basil)}
+.vocab .es{display:block}
+.vocab .pr{display:block;color:var(--muted);font-size:.88rem}
+.spk{flex:none;font-size:1.4rem}
+.q{font-size:1.2rem;font-weight:600;margin:.6rem 0 1rem}
+.opt{display:block;width:100%;font:inherit;color:inherit;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:.9rem;padding:.85rem 1rem;margin-bottom:.6rem;cursor:pointer;min-height:3rem}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--tomato)}
+.fb{border-radius:.8rem;padding:.8rem 1rem;margin:.8rem 0}
+.fb.ok{background:var(--okbg)} .fb.bad{background:var(--badbg)}
+.prog{color:var(--muted);font-size:.9rem}
+.big{font-size:3rem;font-family:Georgia,serif;font-weight:700;margin:.3rem 0}
+.tools{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+.toast{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:.7rem;font-size:.9rem;max-width:90%}
+@media (prefers-reduced-motion: no-preference){.bar i{transition:width .4s}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+
+<script>
+"use strict";
+
+/* ====================== CONTENIDO: 8 LECCIONES ====================== */
+/* vocab: [italiano, español, pronunciación aproximada] */
+const LESSONS = [
+{
+  title: "Saludos y cortesía",
+  sub: "Ciao, grazie, per favore",
+  intro: [
+    "En italiano hay saludos para cada momento del día. <b>Ciao</b> sirve para hola y adiós con amigos y familia. Con desconocidos o personas mayores se usa <b>buongiorno</b> (por la mañana y hasta mediodía) y <b>buonasera</b> (desde la tarde).",
+    "<b>Buonanotte</b> solo se dice al despedirse para irse a dormir. Para despedirse con educación: <b>arrivederci</b>.",
+    "Las palabras mágicas: <b>per favore</b> (por favor), <b>grazie</b> (gracias) y <b>prego</b> (de nada). Con <b>scusi</b> pides disculpas o llamas la atención de alguien de forma educada."
+  ],
+  vocab: [
+    ["Ciao", "Hola / adiós (informal)", "chao"],
+    ["Buongiorno", "Buenos días", "buon-yórno"],
+    ["Buonasera", "Buenas tardes / buenas noches (al llegar)", "buona-séra"],
+    ["Buonanotte", "Buenas noches (al irse a dormir)", "buona-nótte"],
+    ["Arrivederci", "Adiós", "arribe-dérchi"],
+    ["Per favore", "Por favor", "per fa-vóre"],
+    ["Grazie", "Gracias", "grátsie"],
+    ["Prego", "De nada / adelante", "prégo"],
+    ["Scusi", "Disculpe (formal)", "skúsi"],
+    ["Come stai?", "¿Cómo estás?", "cóme stái"],
+    ["Bene, grazie", "Bien, gracias", "béne, grátsie"],
+    ["Sì / No", "Sí / No", "si / no"]
+  ],
+  tips: [
+    "La <b>c</b> delante de <b>e</b> o <b>i</b> suena como “ch”: ciao = <i>chao</i>, arrivederci = <i>arribe-dérchi</i>.",
+    "La <b>z</b> suena como “ts”: grazie = <i>grátsie</i>.",
+    "Las vocales se pronuncian como en español, claras y cortas. Las consonantes dobles (como en <i>buonanotte</i>) se alargan un poquito."
+  ],
+  quiz: [
+    {q:"¿Cómo se dice “gracias”?", o:["Prego","Grazie","Scusi","Ciao"], a:"Grazie", w:"Grazie = gracias. Prego es la respuesta: de nada."},
+    {q:"“Buongiorno” significa…", o:["Buenas noches","Adiós","Buenos días","Por favor"], a:"Buenos días", w:"Buon + giorno = buen día."},
+    {q:"Te preguntan “Come stai?”. ¿Qué respondes?", o:["Arrivederci","Prego","Buonanotte","Bene, grazie"], a:"Bene, grazie", w:"Come stai? = ¿Cómo estás? Respondes: bien, gracias."},
+    {q:"Te vas a dormir. ¿Qué dices?", o:["Buongiorno","Buonanotte","Arrivederci","Prego"], a:"Buonanotte", w:"Buonanotte se usa solo al irse a dormir."},
+    {q:"“Ciao” se pronuncia…", o:["kiao","siao","chao","tsiao"], a:"chao", w:"La c delante de i suena “ch”."},
+    {q:"Alguien te da las gracias. ¿Qué respondes?", o:["Scusi","Prego","Ciao","Per favore"], a:"Prego", w:"Prego = de nada."}
+  ]
+},
+{
+  title: "Presentarse",
+  sub: "Mi chiamo… Sono di…",
+  intro: [
+    "Para decir tu nombre: <b>Mi chiamo</b> + nombre (me llamo). Para preguntar: <b>Come ti chiami?</b> (a un amigo) o <b>Come si chiama?</b> (a alguien con respeto).",
+    "En italiano hay dos formas de tratar a una persona: <b>tu</b> (confianza) y <b>Lei</b> (formal, “usted”). Con alguien que no conoces, empieza con <b>Lei</b>.",
+    "Al conocer a alguien se dice <b>Piacere</b> (encantado/a). Para decir de dónde eres: <b>Sono di</b> + ciudad. Y si no entiendes: <b>Non capisco</b>."
+  ],
+  vocab: [
+    ["Mi chiamo…", "Me llamo…", "mi quiámo"],
+    ["Come ti chiami?", "¿Cómo te llamas?", "cóme ti quiámi"],
+    ["Piacere", "Encantado/a", "piachére"],
+    ["Sono spagnolo / spagnola", "Soy español / española", "sóno spañólo / spañóla"],
+    ["Sono di Gijón", "Soy de Gijón", "sóno di Gijón"],
+    ["Di dove sei?", "¿De dónde eres?", "di dóve séi"],
+    ["Parlo spagnolo", "Hablo español", "párlo spañólo"],
+    ["Non capisco", "No entiendo", "non capísco"],
+    ["Può ripetere, per favore?", "¿Puede repetir, por favor?", "pués ripétere, per favóre"],
+    ["Parla più lentamente", "Hable más despacio", "párla piú lentaménte"]
+  ],
+  tips: [
+    "<b>ch</b> suena como “k”: chiamo = <i>quiámo</i>, chi = <i>qui</i>.",
+    "<b>gn</b> suena como “ñ”: spagnolo = <i>spañólo</i>.",
+    "La <b>h</b> nunca se pronuncia."
+  ],
+  quiz: [
+    {q:"“Mi chiamo Marco” significa…", o:["Soy de Marco","Me llamo Marco","Tengo a Marco","Encantado, Marco"], a:"Me llamo Marco", w:"Mi chiamo = me llamo."},
+    {q:"¿Cómo preguntas “¿de dónde eres?”", o:["Come stai?","Di dove sei?","Come ti chiami?","Quanti anni hai?"], a:"Di dove sei?", w:"Di dove = de dónde."},
+    {q:"Acabas de conocer a alguien. ¿Qué dices?", o:["Piacere","Prego","Arrivederci","Scusi"], a:"Piacere", w:"Piacere = encantado/a."},
+    {q:"Completa: “Io ___ spagnolo”", o:["sei","è","sono","siamo"], a:"sono", w:"Io sono = yo soy."},
+    {q:"“Non capisco” significa…", o:["No hablo","No entiendo","No quiero","No sé"], a:"No entiendo", w:"Capire = entender."},
+    {q:"Completa: “Tu ___ di Madrid?”", o:["sono","è","siamo","sei"], a:"sei", w:"Tu sei = tú eres."}
+  ]
+},
+{
+  title: "Los números del 0 al 20",
+  sub: "Uno, due, tre… y la edad",
+  intro: [
+    "Aprender los números te sirve para la edad, los precios, la hora y los teléfonos. Escúchalos tocando cada fila.",
+    "Para decir la edad en italiano se usa el verbo <b>avere</b> (tener): <b>Ho cinquanta anni</b> = tengo cincuenta años. Para preguntar: <b>Quanti anni hai?</b>",
+    "Del 11 al 16 los números terminan en <b>-dici</b>: undici, dodici, tredici… Del 17 al 19 se forman con <b>dici-</b> delante: diciassette, diciotto, diciannove."
+  ],
+  vocab: [
+    ["zero", "0", "dséro"],
+    ["uno", "1", "úno"],
+    ["due", "2", "dúe"],
+    ["tre", "3", "tré"],
+    ["quattro", "4", "cuáttro"],
+    ["cinque", "5", "chíncue"],
+    ["sei", "6", "séi"],
+    ["sette", "7", "sétte"],
+    ["otto", "8", "ótto"],
+    ["nove", "9", "nóve"],
+    ["dieci", "10", "diéchi"],
+    ["undici", "11", "úndichi"],
+    ["dodici", "12", "dódichi"],
+    ["tredici", "13", "trédichi"],
+    ["quattordici", "14", "cuattórdichi"],
+    ["quindici", "15", "cuíndichi"],
+    ["sedici", "16", "sédichi"],
+    ["diciassette", "17", "dichasétte"],
+    ["diciotto", "18", "dichótto"],
+    ["diciannove", "19", "dichanóve"],
+    ["venti", "20", "vénti"],
+    ["Quanti anni hai?", "¿Cuántos años tienes?", "cuánti ánni ái"],
+    ["Ho venti anni", "Tengo veinte años", "ó vénti ánni"]
+  ],
+  tips: [
+    "<b>sei</b> es el número 6 y también significa “eres” (tu sei). El contexto te lo aclara.",
+    "Las dobles consonantes (quattro, sette, otto) se pronuncian con un pequeño “apoyo”: no es lo mismo <i>sete</i> que <i>sétte</i>.",
+    "<b>qu</b> suena “cu”: quattro = <i>cuáttro</i>."
+  ],
+  quiz: [
+    {q:"“otto” es el número…", o:["6","7","8","9"], a:"8", w:"otto = 8."},
+    {q:"¿Cómo se dice 5?", o:["cinque","quattro","sette","sei"], a:"cinque", w:"cinque = 5."},
+    {q:"“dodici” es…", o:["2","10","12","20"], a:"12", w:"dodici = 12."},
+    {q:"“Ho venti anni” significa…", o:["Tengo veinte años","Soy veinte años","Hay veinte años","Quiero veinte años"], a:"Tengo veinte años", w:"Ho = tengo (avere). Para la edad se usa avere."},
+    {q:"¿Cómo preguntas la edad?", o:["Come stai?","Di dove sei?","Quanti anni hai?","Come ti chiami?"], a:"Quanti anni hai?", w:"Quanti anni = cuántos años."},
+    {q:"15 en italiano es…", o:["quindici","quattordici","sedici","tredici"], a:"quindici", w:"quindici = 15."}
+  ]
+},
+{
+  title: "Artículos y plurales",
+  sub: "Il, lo, la, un, una",
+  intro: [
+    "En italiano todos los nombres son masculinos o femeninos. El artículo cambia según la primera letra de la palabra. Con masculino: <b>il</b> (il libro), <b>lo</b> delante de s+consonante o z (lo zaino, lo studente) y <b>l’</b> delante de vocal (l’amico).",
+    "Con femenino: <b>la</b> (la casa) y <b>l’</b> delante de vocal (l’amica). Para “un/una”: <b>un</b> (un libro, un amico), <b>uno</b> (uno zaino), <b>una</b> (una casa) y <b>un’</b> (un’amica).",
+    "Plurales: los nombres en <b>-o</b> pasan a <b>-i</b> (libro → libri), en <b>-a</b> pasan a <b>-e</b> (casa → case) y en <b>-e</b> pasan a <b>-i</b>. Los artículos plurales: <b>i</b>, <b>gli</b> y <b>le</b>."
+  ],
+  vocab: [
+    ["il libro", "el libro", "il líbro"],
+    ["la casa", "la casa", "la cása"],
+    ["l’amico", "el amigo", "lamíco"],
+    ["l’amica", "la amiga", "lamíca"],
+    ["lo zaino", "la mochila", "lo dsáino"],
+    ["lo studente", "el estudiante", "lo studénte"],
+    ["la pizza", "la pizza", "la pítsa"],
+    ["un libro / una casa", "un libro / una casa", "un líbro / úna cása"],
+    ["i libri", "los libros", "i líbri"],
+    ["le case", "las casas", "le cáse"],
+    ["gli amici", "los amigos", "li amíchi"]
+  ],
+  tips: [
+    "<b>gli</b> suena como “lli” en “lluvia” pero más suave: gli amici = <i>li amíchi</i>.",
+    "<b>ci</b> suena “chi” y <b>ch</b> suena “k”: el plural de <i>amico</i> es <i>amici</i> (amíchi), pero el de <i>amica</i> es <i>amiche</i> (amíke).",
+    "Una buena regla para empezar: casi todos los nombres en <b>-a</b> son femeninos y casi todos en <b>-o</b> son masculinos."
+  ],
+  quiz: [
+    {q:"Completa: ___ casa", o:["il","la","lo","i"], a:"la", w:"Casa es femenino: la casa."},
+    {q:"Completa: ___ libro", o:["la","le","il","gli"], a:"il", w:"Libro es masculino y empieza por consonante: il libro."},
+    {q:"Completa: ___ amico (con vocal)", o:["il","la","lo","l’"], a:"l’", w:"Delante de vocal se usa l’: l’amico."},
+    {q:"El plural de “libro” es…", o:["libre","libri","libros","libra"], a:"libri", w:"-o pasa a -i."},
+    {q:"El plural de “casa” es…", o:["casi","casas","case","caso"], a:"case", w:"-a pasa a -e."},
+    {q:"Completa: ___ studente", o:["il","lo","la","le"], a:"lo", w:"Delante de s+consonante se usa lo."}
+  ]
+},
+{
+  title: "Essere y avere",
+  sub: "Ser/estar y tener",
+  intro: [
+    "<b>Essere</b> (ser/estar) y <b>avere</b> (tener) son los dos verbos más importantes. Hay que aprenderlos de memoria.",
+    "<b>Essere:</b> io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.<br><b>Avere:</b> io ho, tu hai, lui/lei ha, noi abbiamo, voi avete, loro hanno.",
+    "Casi nunca se dice el pronombre: <i>Sono stanco</i> (estoy cansado), <i>Ho fame</i> (tengo hambre). Para negar, pon <b>non</b> delante del verbo: <i>Non sono stanco</i>."
+  ],
+  vocab: [
+    ["io sono", "yo soy / estoy", "ío sóno"],
+    ["tu sei", "tú eres / estás", "tu séi"],
+    ["lui / lei è", "él / ella es / está", "lúi / léi é"],
+    ["noi siamo", "nosotros somos", "nói siámo"],
+    ["voi siete", "vosotros sois", "vói siéte"],
+    ["loro sono", "ellos son", "lóro sóno"],
+    ["io ho", "yo tengo", "ío ó"],
+    ["tu hai", "tú tienes", "tu ái"],
+    ["lui / lei ha", "él / ella tiene", "lúi / léi a"],
+    ["noi abbiamo", "nosotros tenemos", "nói abbiámo"],
+    ["Ho fame / Ho sete", "Tengo hambre / sed", "ó fáme / ó séte"],
+    ["Ho caldo / Ho freddo", "Tengo calor / frío", "ó cáldo / ó fréddo"],
+    ["Sono stanco", "Estoy cansado", "sóno stánco"],
+    ["Non sono stanco", "No estoy cansado", "non sóno stánco"]
+  ],
+  tips: [
+    "La <b>h</b> de <i>ho, hai, ha, hanno</i> es muda: <i>ho</i> suena “ó”.",
+    "Ojo con el acento: <b>è</b> (es) lleva acento; <b>e</b> sin acento significa “y”.",
+    "En italiano se dice “tengo hambre, sed, calor, frío” con <b>avere</b>, como en español."
+  ],
+  quiz: [
+    {q:"Completa: “Noi ___ amici”", o:["sono","siamo","siete","sei"], a:"siamo", w:"Noi siamo = nosotros somos."},
+    {q:"Completa: “Lei ___ una sorella”", o:["ha","è","ho","hanno"], a:"ha", w:"Lei ha = ella tiene."},
+    {q:"Completa: “Io ___ fame”", o:["sono","ho","hai","ha"], a:"ho", w:"Ho fame = tengo hambre."},
+    {q:"Completa: “Loro ___ italiani”", o:["siamo","è","sono","siete"], a:"sono", w:"Loro sono = ellos son."},
+    {q:"“Non sono stanco” significa…", o:["No estoy cansado","Estoy cansado","No tengo hambre","Tengo sueño"], a:"No estoy cansado", w:"Non = no; stanco = cansado."},
+    {q:"Completa: “Tu ___ due gatti”", o:["sei","hai","ho","ha"], a:"hai", w:"Tu hai = tú tienes."}
+  ]
+},
+{
+  title: "La familia",
+  sub: "Mia madre, mio fratello",
+  intro: [
+    "Vocabulario básico de la familia: <b>la famiglia</b>. Madre y padre en italiano son <b>madre</b> y <b>padre</b>; en casa se dice <b>mamma</b> y <b>papà</b>.",
+    "Los posesivos: <b>mio/mia</b> (mi), <b>tuo/tua</b> (tu), <b>suo/sua</b> (su). Concuerdan con lo que se posee: <i>mio fratello</i> (masculino), <i>mia sorella</i> (femenino).",
+    "Regla fácil: con un familiar en singular no se usa artículo (<i>mia madre</i>, <i>mio fratello</i>). Con otras cosas sí: <i>il mio libro</i>, <i>la mia casa</i>."
+  ],
+  vocab: [
+    ["la famiglia", "la familia", "la familia"],
+    ["la madre / la mamma", "la madre / mamá", "la máde / la mámma"],
+    ["il padre / il papà", "el padre / papá", "il pádre / il papá"],
+    ["il fratello", "el hermano", "il fratéllo"],
+    ["la sorella", "la hermana", "la soréla"],
+    ["il figlio / la figlia", "el hijo / la hija", "il fílio / la fília"],
+    ["il nonno / la nonna", "el abuelo / la abuela", "il nónno / la nónna"],
+    ["il marito / la moglie", "el marido / la esposa", "il maríto / la mólie"],
+    ["lo zio / la zia", "el tío / la tía", "lo dsío / la dsía"],
+    ["mio fratello", "mi hermano", "mío fratéllo"],
+    ["mia sorella", "mi hermana", "mía soréla"],
+    ["mia madre si chiama Anna", "mi madre se llama Anna", "mía máde si quiáma ánna"]
+  ],
+  tips: [
+    "<b>gl</b> en <i>figlio</i> suena como “lli”: <i>fílio</i> (la <b>g</b> no se pronuncia).",
+    "<b>gn</b> suena “ñ”: <i>cognome</i> (apellido) = <i>coñóme</i>.",
+    "Acentúa casi siempre la penúltima sílaba: <i>fratéllo</i>, <i>sorélla</i>, <i>nónno</i>."
+  ],
+  quiz: [
+    {q:"“fratello” significa…", o:["hermano","hijo","tío","padre"], a:"hermano", w:"fratello = hermano."},
+    {q:"“nonna” significa…", o:["madre","hermana","abuela","tía"], a:"abuela", w:"nonna = abuela."},
+    {q:"“Mia sorella” significa…", o:["Mi hermana","Su hermana","Tu hermana","Mi madre"], a:"Mi hermana", w:"Mia = mi (femenino); sorella = hermana."},
+    {q:"¿Cómo dices “mi marido”?", o:["mia marito","mio marito","la mio marito","tuo marito"], a:"mio marito", w:"Marito es masculino: mio marito."},
+    {q:"“moglie” significa…", o:["esposa","hermana","hija","tía"], a:"esposa", w:"moglie = esposa."},
+    {q:"Completa: “___ madre si chiama Anna”", o:["Mio","Tuo","Suoi","Mia"], a:"Mia", w:"Madre es femenino: mia madre."}
+  ]
+},
+{
+  title: "En el bar y el restaurante",
+  sub: "Vorrei un caffè",
+  intro: [
+    "Para pedir con educación se usa <b>Vorrei</b> (querría): <i>Vorrei un caffè, per favore</i>. Es más amable que “quiero”.",
+    "Las comidas del día: <b>la colazione</b> (desayuno), <b>il pranzo</b> (comida del mediodía) y <b>la cena</b> (cena).",
+    "Al terminar: <b>Il conto, per favore</b> (la cuenta, por favor). Para preguntar un precio: <b>Quanto costa?</b>. Y antes de comer: <b>Buon appetito!</b>"
+  ],
+  vocab: [
+    ["Vorrei un caffè", "Querría un café", "vorréi un cafè"],
+    ["un cappuccino", "un capuchino", "un capuchíno"],
+    ["un bicchiere d’acqua", "un vaso de agua", "un bikiére dácua"],
+    ["acqua naturale", "agua sin gas", "ácua naturále"],
+    ["acqua frizzante", "agua con gas", "ácua fridsánte"],
+    ["il pane", "el pan", "il páne"],
+    ["il vino / la birra", "el vino / la cerveza", "il víno / la bírra"],
+    ["la colazione", "el desayuno", "la colatsióne"],
+    ["il pranzo", "la comida del mediodía", "il prándso"],
+    ["la cena", "la cena", "la chéna"],
+    ["Il conto, per favore", "La cuenta, por favor", "il cónto, per favóre"],
+    ["Quanto costa?", "¿Cuánto cuesta?", "cuánto cósta"],
+    ["Buon appetito!", "¡Que aproveche!", "buón appetíto"],
+    ["Mi piace", "Me gusta", "mi piáche"]
+  ],
+  tips: [
+    "En Italia el <b>cappuccino</b> se toma solo por la mañana; después de comer lo normal es pedir un <b>caffè</b> (un espresso corto).",
+    "<b>ce</b> y <b>ci</b> suenan “che” y “chi”: cena = <i>chéna</i>, cappuccino = <i>capuchíno</i>.",
+    "<b>zz</b> suena como “ts” fuerte: pizza = <i>pítsa</i>, pranzo = <i>prándso</i>."
+  ],
+  quiz: [
+    {q:"“Il conto, per favore” significa…", o:["El café, por favor","La cuenta, por favor","El pan, por favor","El menú, por favor"], a:"La cuenta, por favor", w:"Il conto = la cuenta."},
+    {q:"¿Cómo pides un café con educación?", o:["Vorrei un caffè","Ho un caffè","Sono un caffè","Mi chiamo caffè"], a:"Vorrei un caffè", w:"Vorrei = querría."},
+    {q:"“Acqua frizzante” es…", o:["agua fría","agua con gas","agua sin gas","agua caliente"], a:"agua con gas", w:"Frizzante = con gas."},
+    {q:"“Il pranzo” es…", o:["el desayuno","la merienda","la comida del mediodía","la cena"], a:"la comida del mediodía", w:"Pranzo = comida del mediodía."},
+    {q:"“Buon appetito!” significa…", o:["¡Que aproveche!","¡Buenas noches!","¡Salud!","¡Gracias!"], a:"¡Que aproveche!", w:"Se dice antes de empezar a comer."},
+    {q:"¿Cómo preguntas el precio?", o:["Dov’è?","Come stai?","Quanto costa?","Quanti anni hai?"], a:"Quanto costa?", w:"Quanto costa? = ¿cuánto cuesta?"}
+  ]
+},
+{
+  title: "Días, hora y lugares",
+  sub: "Dov’è la stazione?",
+  intro: [
+    "Los días de la semana empiezan con minúscula: <b>lunedì, martedì, mercoledì, giovedì, venerdì, sabato, domenica</b>.",
+    "Para la hora: <b>Che ore sono?</b> y respondes <b>Sono le tre</b> (son las tres). La una es la excepción: <b>È l’una</b>.",
+    "Para encontrar lugares: <b>Dov’è…?</b> (¿dónde está…?) y las direcciones: <b>a destra</b> (a la derecha), <b>a sinistra</b> (a la izquierda) y <b>dritto</b> (todo recto)."
+  ],
+  vocab: [
+    ["lunedì", "lunes", "lunedí"],
+    ["martedì", "martes", "martedí"],
+    ["mercoledì", "miércoles", "mercoledí"],
+    ["giovedì", "jueves", "yovedí"],
+    ["venerdì", "viernes", "venerdí"],
+    ["sabato", "sábado", "sábato"],
+    ["domenica", "domingo", "doménica"],
+    ["Che ore sono?", "¿Qué hora es?", "qué óre sóno"],
+    ["Sono le tre", "Son las tres", "sóno le tré"],
+    ["È l’una", "Es la una", "é lúna"],
+    ["Dov’è la stazione?", "¿Dónde está la estación?", "dové la statsióne"],
+    ["Dov’è il bagno?", "¿Dónde está el baño?", "dové il báño"],
+    ["l’albergo", "el hotel", "lalbérgo"],
+    ["la farmacia", "la farmacia", "la farmachía"],
+    ["a destra", "a la derecha", "a déstra"],
+    ["a sinistra", "a la izquierda", "a sinístra"],
+    ["dritto", "todo recto", "drítto"]
+  ],
+  tips: [
+    "<b>gi</b> suena “y” suave: giovedì = <i>yovedí</i>, giorno = <i>yórno</i>.",
+    "El acento escrito (<b>è, ì</b>) marca la sílaba fuerte: lunedì = <i>lunedí</i>.",
+    "<b>Dov’è</b> es la contracción de “dove è”. Se escribe con apóstrofo."
+  ],
+  quiz: [
+    {q:"“mercoledì” es…", o:["martes","miércoles","jueves","viernes"], a:"miércoles", w:"mercoledì = miércoles."},
+    {q:"“Dov’è la stazione?” significa…", o:["¿Dónde está la estación?","¿Cuánto cuesta la estación?","¿Qué es la estación?","¿Cuándo sale?"], a:"¿Dónde está la estación?", w:"Dove è = dónde está."},
+    {q:"“a sinistra” significa…", o:["a la derecha","a la izquierda","todo recto","detrás"], a:"a la izquierda", w:"sinistra = izquierda."},
+    {q:"“Sono le tre” significa…", o:["Son las tres","Tengo tres","Es la tres","Tres veces"], a:"Son las tres", w:"Sono le tre = son las tres."},
+    {q:"“dritto” significa…", o:["todo recto","a la derecha","atrás","cerca"], a:"todo recto", w:"Dritto = todo recto."},
+    {q:"¿Cómo preguntas por el baño?", o:["Che ore sono?","Dov’è il bagno?","Come stai?","Quanto costa?"], a:"Dov’è il bagno?", w:"Dov’è = ¿dónde está?; il bagno = el baño."}
+  ]
+}
+];
+
+/* ====================== ESTADO Y PROGRESO ====================== */
+const PASS = 5; // aciertos necesarios (de 6) para desbloquear la siguiente lección
+const KEY = "italiano-a1-progreso";
+const KEYFS = "italiano-a1-letra";
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { progress = {}; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch (e) {} }
+let fs = 19;
+try { fs = parseInt(localStorage.getItem(KEYFS), 10) || 19; } catch (e) {}
+function applyFs() { document.documentElement.style.fontSize = fs + "px"; try { localStorage.setItem(KEYFS, String(fs)); } catch (e) {} }
+applyFs();
+
+const app = document.getElementById("app");
+let st = { view: "home", i: 0, qi: 0, score: 0, answered: null, opts: [] };
+
+function unlocked(i) { return i === 0 || progress[i - 1] >= PASS; }
+function doneCount() { return LESSONS.filter((_, i) => progress[i] >= PASS).length; }
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+/* ====================== AUDIO ====================== */
+function say(text) {
+  try {
+    if (!("speechSynthesis" in window)) { toast("Este móvil no tiene voz para reproducir audio."); return; }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.replace(/\s*\/\s*/g, ", "));
+    u.lang = "it-IT"; u.rate = 0.85;
+    const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().replace("_", "-").startsWith("it"));
+    if (v) u.voice = v;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+if ("speechSynthesis" in window) { try { speechSynthesis.getVoices(); } catch (e) {} }
+let toastT;
+function toast(m) {
+  const old = document.querySelector(".toast"); if (old) old.remove();
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t);
+  clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 3000);
+}
+
+/* ====================== VISTAS ====================== */
+function go(view, extra) { Object.assign(st, { view }, extra || {}); render(); window.scrollTo(0, 0); }
+
+function render() {
+  if (st.view === "home") return home();
+  if (st.view === "lesson") return lesson();
+  if (st.view === "quiz") return quiz();
+  if (st.view === "result") return result();
+}
+
+function home() {
+  const n = doneCount(), pct = Math.round(n / LESSONS.length * 100);
+  let h = `<div class="hero"><h1>Italiano Básico A1</h1><p>Ocho lecciones desde cero, con audio y ejercicios.</p>
+    <div class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+    <p style="margin-top:.5rem">${n} de ${LESSONS.length} lecciones superadas</p></div>`;
+  LESSONS.forEach((L, i) => {
+    const ok = progress[i] >= PASS, open = unlocked(i);
+    h += `<button class="row ${ok ? "done" : ""}" data-i="${i}" ${open ? "" : "disabled"}>
+      <span class="num">${ok ? "✓" : open ? i + 1 : "🔒"}</span>
+      <span><b>${esc(L.title)}</b><small>${esc(L.sub)}${progress[i] != null ? " · mejor resultado: " + progress[i] + "/6" : ""}</small></span></button>`;
+  });
+  h += `<p class="prog">Para pasar a la siguiente lección necesitas ${PASS} aciertos de 6. Puedes repetir los ejercicios las veces que quieras.</p>
+    <div class="tools"><button class="btn alt small" id="fm">A−</button><button class="btn alt small" id="fp">A+</button>
+    <button class="btn alt small" id="rs">Borrar progreso</button></div>`;
+  app.innerHTML = h;
+  app.querySelectorAll(".row").forEach(b => b.onclick = () => go("lesson", { i: +b.dataset.i }));
+  document.getElementById("fm").onclick = () => { fs = Math.max(16, fs - 2); applyFs(); };
+  document.getElementById("fp").onclick = () => { fs = Math.min(28, fs + 2); applyFs(); };
+  document.getElementById("rs").onclick = () => { if (confirm("¿Borrar todo el progreso?")) { progress = {}; save(); render(); } };
+}
+
+function lesson() {
+  const L = LESSONS[st.i];
+  let h = `<div class="top"><button class="btn alt small" id="back">‹ Lecciones</button><span class="prog">Lección ${st.i + 1} de ${LESSONS.length}</span></div>
+    <h1>${esc(L.title)}</h1>`;
+  L.intro.forEach(p => h += `<p>${p}</p>`);
+  h += `<h2>Vocabulario</h2><p class="prog">Toca cada fila para escuchar la pronunciación.</p>`;
+  L.vocab.forEach((v, k) => {
+    h += `<button class="vocab" data-k="${k}"><span><span class="it">${esc(v[0])}</span><span class="es">${esc(v[1])}</span><span class="pr">se lee: ${esc(v[2])}</span></span><span class="spk" aria-hidden="true">🔊</span></button>`;
+  });
+  h += `<h2>Pronunciación</h2>`;
+  L.tips.forEach(t => h += `<div class="tip">${t}</div>`);
+  h += `<p style="margin-top:1.5rem"><button class="btn" id="go" style="width:100%">Hacer los ejercicios</button></p>`;
+  app.innerHTML = h;
+  document.getElementById("back").onclick = () => go("home");
+  document.getElementById("go").onclick = () => go("quiz", { qi: 0, score: 0, answered: null, opts: shuffle(L.quiz[0].o) });
+  app.querySelectorAll(".vocab").forEach(b => b.onclick = () => say(L.vocab[+b.dataset.k][0]));
+}
+
+function quiz() {
+  const L = LESSONS[st.i], Q = L.quiz[st.qi];
+  let h = `<div class="top"><button class="btn alt small" id="back">‹ Salir</button><span class="prog">Pregunta ${st.qi + 1} de ${L.quiz.length}</span></div>
+    <h2 style="margin-top:.5rem">${esc(L.title)}</h2><div class="q">${esc(Q.q)}</div>`;
+  st.opts.forEach((o, k) => {
+    let cls = "";
+    if (st.answered !== null) { if (o === Q.a) cls = "ok"; else if (o === st.answered) cls = "bad"; }
+    h += `<button class="opt ${cls}" data-k="${k}" ${st.answered !== null ? "disabled" : ""}>${esc(o)}</button>`;
+  });
+  if (st.answered !== null) {
+    const good = st.answered === Q.a;
+    h += `<div class="fb ${good ? "ok" : "bad"}" role="status"><b>${good ? "✓ Correcto" : "✗ No es esa. La correcta es: " + esc(Q.a)}</b><br>${esc(Q.w)}</div>
+      <button class="btn" id="next" style="width:100%">${st.qi + 1 < L.quiz.length ? "Siguiente" : "Ver resultado"}</button>`;
+  }
+  app.innerHTML = h;
+  document.getElementById("back").onclick = () => go("lesson");
+  app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    st.answered = st.opts[+b.dataset.k];
+    if (st.answered === Q.a) st.score++;
+    render();
+  });
+  const nx = document.getElementById("next");
+  if (nx) nx.onclick = () => {
+    if (st.qi + 1 < L.quiz.length) { st.qi++; st.answered = null; st.opts = shuffle(L.quiz[st.qi].o); render(); window.scrollTo(0, 0); }
+    else {
+      if (progress[st.i] == null || st.score > progress[st.i]) progress[st.i] = st.score;
+      save(); go("result");
+    }
+  };
+}
+
+function result() {
+  const L = LESSONS[st.i], n = L.quiz.length, pass = st.score >= PASS, last = st.i === LESSONS.length - 1;
+  let h = `<div class="top"><span class="prog">${esc(L.title)}</span></div>
+    <div class="card" style="text-align:center"><div class="big">${st.score} / ${n}</div>
+    <p><b>${pass ? (last ? "¡Has terminado el curso A1! Enhorabuena." : "¡Muy bien! Lección superada.") : "Casi. Repasa la lección y vuelve a intentarlo."}</b></p>
+    <p class="prog">${pass ? "" : `Necesitas ${PASS} aciertos para pasar a la siguiente.`}</p></div>`;
+  if (pass && !last) h += `<button class="btn" id="n" style="width:100%;margin-bottom:.6rem">Siguiente lección</button>`;
+  h += `<button class="btn alt" id="r" style="width:100%;margin-bottom:.6rem">${pass ? "Repetir ejercicios" : "Repasar la lección"}</button>
+    <button class="btn alt" id="h" style="width:100%">Todas las lecciones</button>`;
+  app.innerHTML = h;
+  const nb = document.getElementById("n"); if (nb) nb.onclick = () => go("lesson", { i: st.i + 1 });
+  document.getElementById("r").onclick = () => pass ? go("quiz", { qi: 0, score: 0, answered: null, opts: shuffle(L.quiz[0].o) }) : go("lesson");
+  document.getElementById("h").onclick = () => go("home");
+}
+
+render();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(() => {}); });
+}
+</script>
+</body>
+</html>
