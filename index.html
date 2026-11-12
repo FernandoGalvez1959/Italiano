@@ -1,733 +1,944 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1F6B45">
-<title>Italiano Básico A1</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Italiano Básico A1">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
+<title>Italiano Básico A1</title>
 <style>
-:root{
-  --bg:#EEF2EC; --card:#FFFFFF; --ink:#17231C; --muted:#4F5F55; --line:#CBD6CC;
-  --basil:#1F6B45; --basil-d:#154D32; --tomato:#B3261E; --ok:#1F6B45; --okbg:#DDF0E4; --badbg:#F8DEDB; --sun:#F1D58A;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#111A15; --card:#1B2820; --ink:#EDF3EE; --muted:#A9B9AF; --line:#34483B;
-    --basil:#5DBB8A; --basil-d:#8AD6AF; --tomato:#FF8A80; --ok:#7FD6A3; --okbg:#1F3D2B; --badbg:#4A2420; --sun:#6B5A25; }
-}
-*{box-sizing:border-box}
-html{font-size:19px;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;
-  padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
-main{max-width:680px;margin:0 auto;padding:1rem 1rem 3rem}
-h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 .5rem}
-h1{font-size:1.9rem} h2{font-size:1.45rem;margin-top:1.6rem} h3{font-size:1.15rem}
-p{margin:.5rem 0}
-.top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.8rem}
-.btn{font:inherit;font-weight:600;min-height:3rem;padding:.6rem 1.1rem;border-radius:.8rem;border:2px solid var(--basil);background:var(--basil);color:#fff;cursor:pointer}
-@media (prefers-color-scheme: dark){.btn{color:#0E1A13}}
-.btn.alt{background:transparent;color:var(--basil)}
-.btn.small{min-height:2.4rem;padding:.3rem .8rem;font-size:.9rem}
-.btn:focus-visible,.row:focus-visible,.opt:focus-visible,.vocab:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
-.btn[disabled]{opacity:.5;cursor:not-allowed}
-.hero{background:var(--basil);color:#fff;border-radius:1rem;padding:1.2rem 1.1rem;margin-bottom:1rem}
-@media (prefers-color-scheme: dark){.hero{color:#0E1A13}}
-.hero h1{margin:0 0 .2rem}
-.hero p{margin:0;opacity:.95}
-.bar{height:.6rem;background:rgba(255,255,255,.3);border-radius:1rem;margin-top:.8rem;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--sun);border-radius:1rem}
-.row{display:flex;gap:.9rem;align-items:center;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:.9rem;margin-bottom:.7rem;cursor:pointer}
-.row[disabled]{opacity:.55;cursor:not-allowed}
-.num{flex:none;width:2.6rem;height:2.6rem;border-radius:50%;background:var(--bg);border:2px solid var(--basil);display:grid;place-items:center;font-weight:700;color:var(--basil)}
-.row.done .num{background:var(--basil);color:#fff}
-@media (prefers-color-scheme: dark){.row.done .num{color:#0E1A13}}
-.row b{display:block;font-size:1.05rem}
-.row small{color:var(--muted);font-size:.85rem}
-.card{background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:1rem;margin:.7rem 0}
-.tip{border-left:6px solid var(--sun);background:var(--card);border-radius:.5rem;padding:.7rem .9rem;margin:.6rem 0}
-.vocab{display:flex;justify-content:space-between;align-items:center;gap:.6rem;width:100%;font:inherit;color:inherit;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:.9rem;padding:.7rem .9rem;margin-bottom:.5rem;cursor:pointer}
-.vocab .it{font-weight:700;font-size:1.1rem;color:var(--basil)}
-.vocab .es{display:block}
-.vocab .pr{display:block;color:var(--muted);font-size:.88rem}
-.spk{flex:none;font-size:1.4rem}
-.q{font-size:1.2rem;font-weight:600;margin:.6rem 0 1rem}
-.opt{display:block;width:100%;font:inherit;color:inherit;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:.9rem;padding:.85rem 1rem;margin-bottom:.6rem;cursor:pointer;min-height:3rem}
-.opt.ok{background:var(--okbg);border-color:var(--ok)}
-.opt.bad{background:var(--badbg);border-color:var(--tomato)}
-.fb{border-radius:.8rem;padding:.8rem 1rem;margin:.8rem 0}
-.fb.ok{background:var(--okbg)} .fb.bad{background:var(--badbg)}
-.prog{color:var(--muted);font-size:.9rem}
-.big{font-size:3rem;font-family:Georgia,serif;font-weight:700;margin:.3rem 0}
-.tools{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
-.toast{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:.7rem;font-size:.9rem;max-width:90%}
-.in{font:inherit;width:100%;min-height:3rem;padding:.6rem .8rem;border-radius:.8rem;border:2px solid var(--line);background:var(--card);color:var(--ink);margin-bottom:.6rem}
-.in:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
-.lbl{display:block;font-weight:600;margin:.4rem 0 .2rem}
-.msg{min-height:1.5rem;margin:.6rem 0;font-weight:600}
-.stack .btn{width:100%;margin-bottom:.6rem}
-.syncbar{display:block;position:sticky;top:0;z-index:5;width:100%;font:inherit;font-size:.85rem;font-weight:600;text-align:center;padding:.55rem .8rem;border:0;border-bottom:2px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;min-height:2.5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.syncbar.ok{background:var(--okbg);color:var(--ok)}
-.syncbar[hidden]{display:none}
-.syncbar:focus-visible{outline:3px solid var(--tomato);outline-offset:-3px}
-@media (prefers-reduced-motion: no-preference){.bar i{transition:width .4s}}
+  :root {
+    --bg: #EFF4EF;
+    --surface: #FFFFFF;
+    --ink: #14241A;
+    --muted: #4B6053;
+    --line: #CCDACF;
+    --sea: #1F6B45;
+    --sea-ink: #FFFFFF;
+    --sun: #FBD56B;
+    --sun-ink: #3A2B00;
+    --ok: #17794A;
+    --ok-bg: #DDF3E6;
+    --bad: #A3262B;
+    --bad-bg: #FBE3E2;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E1A13;
+      --surface: #172A1E;
+      --ink: #EAF4EC;
+      --muted: #A6BCAD;
+      --line: #2C4636;
+      --sea: #6CCB93;
+      --sea-ink: #06220F;
+      --sun: #F4C94F;
+      --sun-ink: #2B1F00;
+      --ok: #7FE0AB;
+      --ok-bg: #12382A;
+      --bad: #FF9C9C;
+      --bad-bg: #3F1D1F;
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: var(--sans);
+    font-size: 19px;
+    line-height: 1.5;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    min-height: 100vh;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px 8px;
+    max-width: 640px; margin: 0 auto;
+  }
+  header h1 { font-family: var(--serif); font-size: 22px; margin: 0; letter-spacing: .2px; }
+  .chip {
+    background: var(--sun); color: var(--sun-ink);
+    border-radius: 999px; padding: 6px 14px; font-size: 16px; font-weight: 700;
+  }
+  .syncbar { display: block; width: calc(100% - 40px); max-width: 600px; margin: 2px auto 0; text-align: left; border: 0; border-radius: 12px;
+    padding: 8px 14px; font: 600 16px system-ui, sans-serif; cursor: pointer; }
+  .syncbar[hidden] { display: none; }
+  .syncbar.ok { background: #E1F1E8; color: #173D2B; }
+  .syncbar.busy { background: #EAF0F6; color: #27425F; }
+  .syncbar.warn { background: #FFF1CC; color: #5A4300; }
+  .syncbar.bad { background: #FBE4DF; color: #5A1E15; }
+  main { max-width: 640px; margin: 0 auto; padding: 8px 20px 24px; }
+  section[hidden] { display: none; }
+  h2 { font-family: var(--serif); font-size: 28px; line-height: 1.2; margin: 12px 0 8px; }
+  h3 { font-size: 20px; margin: 22px 0 8px; }
+  p { margin: 8px 0; }
+  .muted { color: var(--muted); }
+
+  .hero {
+    background: var(--sea); color: var(--sea-ink);
+    border-radius: 22px; padding: 26px 22px; margin: 12px 0 18px;
+    text-align: left; width: 100%; border: 0; cursor: pointer; font: inherit;
+  }
+  .hero .en { font-family: var(--serif); font-size: 54px; line-height: 1.05; font-weight: 700; display: block; }
+  .hero.long .en { font-size: 34px; line-height: 1.15; }
+  .hero .pron { display: inline-block; margin-top: 10px; background: var(--sun); color: var(--sun-ink); padding: 4px 12px; border-radius: 10px; font-weight: 700; font-size: 22px; }
+  .hero .es { display: block; margin-top: 10px; font-size: 21px; opacity: .95; }
+  .hero .hint { display: block; margin-top: 12px; font-size: 16px; opacity: .85; }
+
+  .row {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 14px 16px; margin: 10px 0;
+  }
+  .row .txt { flex: 1; min-width: 0; }
+  .row .en { font-family: var(--serif); font-size: 25px; font-weight: 700; line-height: 1.15; }
+  .row .pron { color: var(--sea); font-weight: 700; font-size: 18px; }
+  .row .es { color: var(--muted); font-size: 18px; }
+
+  button { font: inherit; cursor: pointer; }
+  .icon-btn {
+    width: 54px; height: 54px; border-radius: 50%; border: 2px solid var(--sea);
+    background: transparent; color: var(--sea); font-size: 25px; flex: none;
+    display: grid; place-items: center; padding: 0;
+  }
+  .icon-btn:active { background: var(--sea); color: var(--sea-ink); }
+  .btn {
+    display: block; width: 100%; min-height: 58px; padding: 14px 18px;
+    border-radius: 16px; border: 2px solid var(--sea);
+    background: var(--sea); color: var(--sea-ink); font-weight: 700; font-size: 20px;
+    margin: 12px 0;
+  }
+  .btn.ghost { background: transparent; color: var(--sea); }
+  .btn[disabled] { opacity: .45; cursor: default; }
+
+  .tip {
+    background: var(--surface); border-left: 6px solid var(--sun);
+    border-radius: 12px; padding: 14px 16px; margin: 14px 0;
+  }
+  .tip b { font-family: var(--serif); }
+
+  .dialog { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 8px 16px 4px; margin: 12px 0; }
+  .dialog h4 { margin: 8px 0 4px; font-size: 18px; color: var(--muted); font-weight: 600; }
+  .dline { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+  .dline:first-of-type { border-top: 0; }
+  .dline .who {
+    width: 30px; height: 30px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    font-weight: 700; font-size: 15px; background: var(--sun); color: var(--sun-ink);
+  }
+  .dline .who.b { background: var(--sea); color: var(--sea-ink); }
+  .dline .txt { flex: 1; min-width: 0; }
+  .dline .en { font-family: var(--serif); font-size: 21px; font-weight: 700; line-height: 1.2; }
+  .dline .es { color: var(--muted); font-size: 16px; }
+  .dline .icon-btn { width: 44px; height: 44px; font-size: 20px; }
+
+  .card {
+    width: 100%; min-height: 280px; border-radius: 24px; border: 2px solid var(--sea);
+    background: var(--surface); color: var(--ink);
+    padding: 26px 22px; text-align: center; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px; margin: 12px 0;
+  }
+  .card .big { font-family: var(--serif); font-size: 38px; font-weight: 700; line-height: 1.15; }
+  .card .big.long { font-size: 28px; }
+  .card .pron { background: var(--sun); color: var(--sun-ink); padding: 4px 14px; border-radius: 10px; font-weight: 700; font-size: 22px; }
+  .card .small { color: var(--muted); font-size: 17px; }
+  .counter { text-align: center; color: var(--muted); font-size: 17px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .bar { height: 12px; background: var(--line); border-radius: 999px; overflow: hidden; margin: 10px 0 16px; }
+  .bar > i { display: block; height: 100%; background: var(--sea); transition: width .25s; }
+  .q { font-family: var(--serif); font-size: 27px; line-height: 1.25; margin: 6px 0 14px; }
+  .opt {
+    display: block; width: 100%; text-align: left; min-height: 60px;
+    background: var(--surface); color: var(--ink); border: 2px solid var(--line);
+    border-radius: 16px; padding: 14px 18px; margin: 10px 0; font-size: 21px;
+  }
+  .opt.ok { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); font-weight: 700; }
+  .opt.bad { border-color: var(--bad); background: var(--bad-bg); color: var(--bad); }
+  input[type=text], input[type=email], input[type=password] {
+    width: 100%; min-height: 60px; font: inherit; font-size: 24px; padding: 12px 16px;
+    border: 2px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink);
+  }
+  input[type=text]:focus, input[type=email]:focus, input[type=password]:focus { outline: 3px solid var(--sun); border-color: var(--sea); }
+  .answer-area {
+    min-height: 70px; border: 2px dashed var(--line); border-radius: 16px;
+    padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px;
+  }
+  .tile {
+    background: var(--surface); color: var(--ink); border: 2px solid var(--sea);
+    border-radius: 12px; padding: 10px 16px; font-size: 22px; font-family: var(--serif); font-weight: 700;
+  }
+  .tile.used { opacity: .25; pointer-events: none; }
+  .tiles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .feedback { border-radius: 16px; padding: 14px 16px; margin: 12px 0; font-size: 20px; }
+  .feedback.ok { background: var(--ok-bg); color: var(--ok); }
+  .feedback.bad { background: var(--bad-bg); color: var(--bad); }
+  .feedback b { font-family: var(--serif); font-size: 22px; }
+  .score { font-family: var(--serif); font-size: 64px; font-weight: 700; text-align: center; margin: 10px 0 0; }
+
+  .lesson-item {
+    display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+    border-radius: 16px; padding: 14px 16px; margin: 10px 0;
+  }
+  .lesson-item .n {
+    width: 42px; height: 42px; flex: none; border-radius: 50%; display: grid; place-items: center;
+    background: var(--sea); color: var(--sea-ink); font-weight: 700;
+  }
+  .lesson-item.current { border: 2px solid var(--sea); }
+  .lesson-item.locked { opacity: .6; cursor: default; }
+  .lesson-item.locked .n { background: var(--line); color: var(--muted); }
+  .lesson-item .state { font-size: 16px; color: var(--muted); }
+  .lesson-item.done .state { color: var(--ok); font-weight: 700; }
+
+  .sync { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin: 22px 0 8px; }
+  .sync h3 { margin: 0 0 6px; }
+  .sync input { margin: 8px 0; }
+  .sync-msg { margin: 8px 0 0; font-size: 17px; color: var(--muted); }
+  .sync-msg.ok { color: var(--ok); font-weight: 700; }
+  .sync-msg.bad { color: var(--bad); font-weight: 700; }
+
+  nav {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: var(--surface); border-top: 1px solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    display: flex; justify-content: center; z-index: 5;
+  }
+  nav .inner { display: flex; width: 100%; max-width: 640px; }
+  nav button {
+    flex: 1; border: 0; background: transparent; color: var(--muted);
+    padding: 10px 2px; min-height: 68px; font-size: 14px; font-weight: 600;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  nav button .ic { font-size: 24px; line-height: 1; }
+  nav button[aria-current=page] { color: var(--sea); }
+  nav button[aria-current=page] .ic { transform: scale(1.1); }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
+
+<header>
+  <h1>Italiano Básico A1</h1>
+  <span class="chip" id="chip">Lección 1</span>
+</header>
 <button type="button" id="syncbar" class="syncbar" hidden></button>
-<main id="app"></main>
+
+<main>
+  <section id="v-aprender"></section>
+  <section id="v-tarjetas" hidden></section>
+  <section id="v-practica" hidden></section>
+  <section id="v-plan" hidden></section>
+  <section id="v-datos" hidden></section>
+</main>
+
+<nav aria-label="Secciones">
+  <div class="inner">
+    <button data-tab="aprender" aria-current="page"><span class="ic">📖</span>Lección</button>
+    <button data-tab="tarjetas"><span class="ic">🗂️</span>Tarjetas</button>
+    <button data-tab="practica"><span class="ic">✏️</span>Práctica</button>
+    <button data-tab="plan"><span class="ic">🧭</span>Plan</button>
+    <button data-tab="datos"><span class="ic">☁️</span>Datos</button>
+  </div>
+</nav>
 
 <script src="firebase-config.js"></script>
+<script src="lessons.js"></script>
 <script>
-"use strict";
+(function () {
+  'use strict';
 
-/* ====================== CONTENIDO: 8 LECCIONES ====================== */
-/* vocab: [italiano, español, pronunciación aproximada] */
-const LESSONS = [
-{
-  title: "Saludos y cortesía",
-  sub: "Ciao, grazie, per favore",
-  intro: [
-    "En italiano hay saludos para cada momento del día. <b>Ciao</b> sirve para hola y adiós con amigos y familia. Con desconocidos o personas mayores se usa <b>buongiorno</b> (por la mañana y hasta mediodía) y <b>buonasera</b> (desde la tarde).",
-    "<b>Buonanotte</b> solo se dice al despedirse para irse a dormir. Para despedirse con educación: <b>arrivederci</b>.",
-    "Las palabras mágicas: <b>per favore</b> (por favor), <b>grazie</b> (gracias) y <b>prego</b> (de nada). Con <b>scusi</b> pides disculpas o llamas la atención de alguien de forma educada."
-  ],
-  vocab: [
-    ["Ciao", "Hola / adiós (informal)", "chao"],
-    ["Buongiorno", "Buenos días", "buon-yórno"],
-    ["Buonasera", "Buenas tardes / buenas noches (al llegar)", "buona-séra"],
-    ["Buonanotte", "Buenas noches (al irse a dormir)", "buona-nótte"],
-    ["Arrivederci", "Adiós", "arribe-dérchi"],
-    ["Per favore", "Por favor", "per fa-vóre"],
-    ["Grazie", "Gracias", "grátsie"],
-    ["Prego", "De nada / adelante", "prégo"],
-    ["Scusi", "Disculpe (formal)", "skúsi"],
-    ["Come stai?", "¿Cómo estás?", "cóme stái"],
-    ["Bene, grazie", "Bien, gracias", "béne, grátsie"],
-    ["Sì / No", "Sí / No", "si / no"]
-  ],
-  tips: [
-    "La <b>c</b> delante de <b>e</b> o <b>i</b> suena como “ch”: ciao = <i>chao</i>, arrivederci = <i>arribe-dérchi</i>.",
-    "La <b>z</b> suena como “ts”: grazie = <i>grátsie</i>.",
-    "Las vocales se pronuncian como en español, claras y cortas. Las consonantes dobles (como en <i>buonanotte</i>) se alargan un poquito."
-  ],
-  quiz: [
-    {q:"¿Cómo se dice “gracias”?", o:["Prego","Grazie","Scusi","Ciao"], a:"Grazie", w:"Grazie = gracias. Prego es la respuesta: de nada."},
-    {q:"“Buongiorno” significa…", o:["Buenas noches","Adiós","Buenos días","Por favor"], a:"Buenos días", w:"Buon + giorno = buen día."},
-    {q:"Te preguntan “Come stai?”. ¿Qué respondes?", o:["Arrivederci","Prego","Buonanotte","Bene, grazie"], a:"Bene, grazie", w:"Come stai? = ¿Cómo estás? Respondes: bien, gracias."},
-    {q:"Te vas a dormir. ¿Qué dices?", o:["Buongiorno","Buonanotte","Arrivederci","Prego"], a:"Buonanotte", w:"Buonanotte se usa solo al irse a dormir."},
-    {q:"“Ciao” se pronuncia…", o:["kiao","siao","chao","tsiao"], a:"chao", w:"La c delante de i suena “ch”."},
-    {q:"Alguien te da las gracias. ¿Qué respondes?", o:["Scusi","Prego","Ciao","Per favore"], a:"Prego", w:"Prego = de nada."}
-  ]
-},
-{
-  title: "Presentarse",
-  sub: "Mi chiamo… Sono di…",
-  intro: [
-    "Para decir tu nombre: <b>Mi chiamo</b> + nombre (me llamo). Para preguntar: <b>Come ti chiami?</b> (a un amigo) o <b>Come si chiama?</b> (a alguien con respeto).",
-    "En italiano hay dos formas de tratar a una persona: <b>tu</b> (confianza) y <b>Lei</b> (formal, “usted”). Con alguien que no conoces, empieza con <b>Lei</b>.",
-    "Al conocer a alguien se dice <b>Piacere</b> (encantado/a). Para decir de dónde eres: <b>Sono di</b> + ciudad. Y si no entiendes: <b>Non capisco</b>."
-  ],
-  vocab: [
-    ["Mi chiamo…", "Me llamo…", "mi quiámo"],
-    ["Come ti chiami?", "¿Cómo te llamas?", "cóme ti quiámi"],
-    ["Piacere", "Encantado/a", "piachére"],
-    ["Sono spagnolo / spagnola", "Soy español / española", "sóno spañólo / spañóla"],
-    ["Sono di Gijón", "Soy de Gijón", "sóno di Gijón"],
-    ["Di dove sei?", "¿De dónde eres?", "di dóve séi"],
-    ["Parlo spagnolo", "Hablo español", "párlo spañólo"],
-    ["Non capisco", "No entiendo", "non capísco"],
-    ["Può ripetere, per favore?", "¿Puede repetir, por favor?", "pués ripétere, per favóre"],
-    ["Parla più lentamente", "Hable más despacio", "párla piú lentaménte"]
-  ],
-  tips: [
-    "<b>ch</b> suena como “k”: chiamo = <i>quiámo</i>, chi = <i>qui</i>.",
-    "<b>gn</b> suena como “ñ”: spagnolo = <i>spañólo</i>.",
-    "La <b>h</b> nunca se pronuncia."
-  ],
-  quiz: [
-    {q:"“Mi chiamo Marco” significa…", o:["Soy de Marco","Me llamo Marco","Tengo a Marco","Encantado, Marco"], a:"Me llamo Marco", w:"Mi chiamo = me llamo."},
-    {q:"¿Cómo preguntas “¿de dónde eres?”", o:["Come stai?","Di dove sei?","Come ti chiami?","Quanti anni hai?"], a:"Di dove sei?", w:"Di dove = de dónde."},
-    {q:"Acabas de conocer a alguien. ¿Qué dices?", o:["Piacere","Prego","Arrivederci","Scusi"], a:"Piacere", w:"Piacere = encantado/a."},
-    {q:"Completa: “Io ___ spagnolo”", o:["sei","è","sono","siamo"], a:"sono", w:"Io sono = yo soy."},
-    {q:"“Non capisco” significa…", o:["No hablo","No entiendo","No quiero","No sé"], a:"No entiendo", w:"Capire = entender."},
-    {q:"Completa: “Tu ___ di Madrid?”", o:["sono","è","siamo","sei"], a:"sei", w:"Tu sei = tú eres."}
-  ]
-},
-{
-  title: "Los números del 0 al 20",
-  sub: "Uno, due, tre… y la edad",
-  intro: [
-    "Aprender los números te sirve para la edad, los precios, la hora y los teléfonos. Escúchalos tocando cada fila.",
-    "Para decir la edad en italiano se usa el verbo <b>avere</b> (tener): <b>Ho cinquanta anni</b> = tengo cincuenta años. Para preguntar: <b>Quanti anni hai?</b>",
-    "Del 11 al 16 los números terminan en <b>-dici</b>: undici, dodici, tredici… Del 17 al 19 se forman con <b>dici-</b> delante: diciassette, diciotto, diciannove."
-  ],
-  vocab: [
-    ["zero", "0", "dséro"],
-    ["uno", "1", "úno"],
-    ["due", "2", "dúe"],
-    ["tre", "3", "tré"],
-    ["quattro", "4", "cuáttro"],
-    ["cinque", "5", "chíncue"],
-    ["sei", "6", "séi"],
-    ["sette", "7", "sétte"],
-    ["otto", "8", "ótto"],
-    ["nove", "9", "nóve"],
-    ["dieci", "10", "diéchi"],
-    ["undici", "11", "úndichi"],
-    ["dodici", "12", "dódichi"],
-    ["tredici", "13", "trédichi"],
-    ["quattordici", "14", "cuattórdichi"],
-    ["quindici", "15", "cuíndichi"],
-    ["sedici", "16", "sédichi"],
-    ["diciassette", "17", "dichasétte"],
-    ["diciotto", "18", "dichótto"],
-    ["diciannove", "19", "dichanóve"],
-    ["venti", "20", "vénti"],
-    ["Quanti anni hai?", "¿Cuántos años tienes?", "cuánti ánni ái"],
-    ["Ho venti anni", "Tengo veinte años", "ó vénti ánni"]
-  ],
-  tips: [
-    "<b>sei</b> es el número 6 y también significa “eres” (tu sei). El contexto te lo aclara.",
-    "Las dobles consonantes (quattro, sette, otto) se pronuncian con un pequeño “apoyo”: no es lo mismo <i>sete</i> que <i>sétte</i>.",
-    "<b>qu</b> suena “cu”: quattro = <i>cuáttro</i>."
-  ],
-  quiz: [
-    {q:"“otto” es el número…", o:["6","7","8","9"], a:"8", w:"otto = 8."},
-    {q:"¿Cómo se dice 5?", o:["cinque","quattro","sette","sei"], a:"cinque", w:"cinque = 5."},
-    {q:"“dodici” es…", o:["2","10","12","20"], a:"12", w:"dodici = 12."},
-    {q:"“Ho venti anni” significa…", o:["Tengo veinte años","Soy veinte años","Hay veinte años","Quiero veinte años"], a:"Tengo veinte años", w:"Ho = tengo (avere). Para la edad se usa avere."},
-    {q:"¿Cómo preguntas la edad?", o:["Come stai?","Di dove sei?","Quanti anni hai?","Come ti chiami?"], a:"Quanti anni hai?", w:"Quanti anni = cuántos años."},
-    {q:"15 en italiano es…", o:["quindici","quattordici","sedici","tredici"], a:"quindici", w:"quindici = 15."}
-  ]
-},
-{
-  title: "Artículos y plurales",
-  sub: "Il, lo, la, un, una",
-  intro: [
-    "En italiano todos los nombres son masculinos o femeninos. El artículo cambia según la primera letra de la palabra. Con masculino: <b>il</b> (il libro), <b>lo</b> delante de s+consonante o z (lo zaino, lo studente) y <b>l’</b> delante de vocal (l’amico).",
-    "Con femenino: <b>la</b> (la casa) y <b>l’</b> delante de vocal (l’amica). Para “un/una”: <b>un</b> (un libro, un amico), <b>uno</b> (uno zaino), <b>una</b> (una casa) y <b>un’</b> (un’amica).",
-    "Plurales: los nombres en <b>-o</b> pasan a <b>-i</b> (libro → libri), en <b>-a</b> pasan a <b>-e</b> (casa → case) y en <b>-e</b> pasan a <b>-i</b>. Los artículos plurales: <b>i</b>, <b>gli</b> y <b>le</b>."
-  ],
-  vocab: [
-    ["il libro", "el libro", "il líbro"],
-    ["la casa", "la casa", "la cása"],
-    ["l’amico", "el amigo", "lamíco"],
-    ["l’amica", "la amiga", "lamíca"],
-    ["lo zaino", "la mochila", "lo dsáino"],
-    ["lo studente", "el estudiante", "lo studénte"],
-    ["la pizza", "la pizza", "la pítsa"],
-    ["un libro / una casa", "un libro / una casa", "un líbro / úna cása"],
-    ["i libri", "los libros", "i líbri"],
-    ["le case", "las casas", "le cáse"],
-    ["gli amici", "los amigos", "li amíchi"]
-  ],
-  tips: [
-    "<b>gli</b> suena como “lli” en “lluvia” pero más suave: gli amici = <i>li amíchi</i>.",
-    "<b>ci</b> suena “chi” y <b>ch</b> suena “k”: el plural de <i>amico</i> es <i>amici</i> (amíchi), pero el de <i>amica</i> es <i>amiche</i> (amíke).",
-    "Una buena regla para empezar: casi todos los nombres en <b>-a</b> son femeninos y casi todos en <b>-o</b> son masculinos."
-  ],
-  quiz: [
-    {q:"Completa: ___ casa", o:["il","la","lo","i"], a:"la", w:"Casa es femenino: la casa."},
-    {q:"Completa: ___ libro", o:["la","le","il","gli"], a:"il", w:"Libro es masculino y empieza por consonante: il libro."},
-    {q:"Completa: ___ amico (con vocal)", o:["il","la","lo","l’"], a:"l’", w:"Delante de vocal se usa l’: l’amico."},
-    {q:"El plural de “libro” es…", o:["libre","libri","libros","libra"], a:"libri", w:"-o pasa a -i."},
-    {q:"El plural de “casa” es…", o:["casi","casas","case","caso"], a:"case", w:"-a pasa a -e."},
-    {q:"Completa: ___ studente", o:["il","lo","la","le"], a:"lo", w:"Delante de s+consonante se usa lo."}
-  ]
-},
-{
-  title: "Essere y avere",
-  sub: "Ser/estar y tener",
-  intro: [
-    "<b>Essere</b> (ser/estar) y <b>avere</b> (tener) son los dos verbos más importantes. Hay que aprenderlos de memoria.",
-    "<b>Essere:</b> io sono, tu sei, lui/lei è, noi siamo, voi siete, loro sono.<br><b>Avere:</b> io ho, tu hai, lui/lei ha, noi abbiamo, voi avete, loro hanno.",
-    "Casi nunca se dice el pronombre: <i>Sono stanco</i> (estoy cansado), <i>Ho fame</i> (tengo hambre). Para negar, pon <b>non</b> delante del verbo: <i>Non sono stanco</i>."
-  ],
-  vocab: [
-    ["io sono", "yo soy / estoy", "ío sóno"],
-    ["tu sei", "tú eres / estás", "tu séi"],
-    ["lui / lei è", "él / ella es / está", "lúi / léi é"],
-    ["noi siamo", "nosotros somos", "nói siámo"],
-    ["voi siete", "vosotros sois", "vói siéte"],
-    ["loro sono", "ellos son", "lóro sóno"],
-    ["io ho", "yo tengo", "ío ó"],
-    ["tu hai", "tú tienes", "tu ái"],
-    ["lui / lei ha", "él / ella tiene", "lúi / léi a"],
-    ["noi abbiamo", "nosotros tenemos", "nói abbiámo"],
-    ["Ho fame / Ho sete", "Tengo hambre / sed", "ó fáme / ó séte"],
-    ["Ho caldo / Ho freddo", "Tengo calor / frío", "ó cáldo / ó fréddo"],
-    ["Sono stanco", "Estoy cansado", "sóno stánco"],
-    ["Non sono stanco", "No estoy cansado", "non sóno stánco"]
-  ],
-  tips: [
-    "La <b>h</b> de <i>ho, hai, ha, hanno</i> es muda: <i>ho</i> suena “ó”.",
-    "Ojo con el acento: <b>è</b> (es) lleva acento; <b>e</b> sin acento significa “y”.",
-    "En italiano se dice “tengo hambre, sed, calor, frío” con <b>avere</b>, como en español."
-  ],
-  quiz: [
-    {q:"Completa: “Noi ___ amici”", o:["sono","siamo","siete","sei"], a:"siamo", w:"Noi siamo = nosotros somos."},
-    {q:"Completa: “Lei ___ una sorella”", o:["ha","è","ho","hanno"], a:"ha", w:"Lei ha = ella tiene."},
-    {q:"Completa: “Io ___ fame”", o:["sono","ho","hai","ha"], a:"ho", w:"Ho fame = tengo hambre."},
-    {q:"Completa: “Loro ___ italiani”", o:["siamo","è","sono","siete"], a:"sono", w:"Loro sono = ellos son."},
-    {q:"“Non sono stanco” significa…", o:["No estoy cansado","Estoy cansado","No tengo hambre","Tengo sueño"], a:"No estoy cansado", w:"Non = no; stanco = cansado."},
-    {q:"Completa: “Tu ___ due gatti”", o:["sei","hai","ho","ha"], a:"hai", w:"Tu hai = tú tienes."}
-  ]
-},
-{
-  title: "La familia",
-  sub: "Mia madre, mio fratello",
-  intro: [
-    "Vocabulario básico de la familia: <b>la famiglia</b>. Madre y padre en italiano son <b>madre</b> y <b>padre</b>; en casa se dice <b>mamma</b> y <b>papà</b>.",
-    "Los posesivos: <b>mio/mia</b> (mi), <b>tuo/tua</b> (tu), <b>suo/sua</b> (su). Concuerdan con lo que se posee: <i>mio fratello</i> (masculino), <i>mia sorella</i> (femenino).",
-    "Regla fácil: con un familiar en singular no se usa artículo (<i>mia madre</i>, <i>mio fratello</i>). Con otras cosas sí: <i>il mio libro</i>, <i>la mia casa</i>."
-  ],
-  vocab: [
-    ["la famiglia", "la familia", "la familia"],
-    ["la madre / la mamma", "la madre / mamá", "la máde / la mámma"],
-    ["il padre / il papà", "el padre / papá", "il pádre / il papá"],
-    ["il fratello", "el hermano", "il fratéllo"],
-    ["la sorella", "la hermana", "la soréla"],
-    ["il figlio / la figlia", "el hijo / la hija", "il fílio / la fília"],
-    ["il nonno / la nonna", "el abuelo / la abuela", "il nónno / la nónna"],
-    ["il marito / la moglie", "el marido / la esposa", "il maríto / la mólie"],
-    ["lo zio / la zia", "el tío / la tía", "lo dsío / la dsía"],
-    ["mio fratello", "mi hermano", "mío fratéllo"],
-    ["mia sorella", "mi hermana", "mía soréla"],
-    ["mia madre si chiama Anna", "mi madre se llama Anna", "mía máde si quiáma ánna"]
-  ],
-  tips: [
-    "<b>gl</b> en <i>figlio</i> suena como “lli”: <i>fílio</i> (la <b>g</b> no se pronuncia).",
-    "<b>gn</b> suena “ñ”: <i>cognome</i> (apellido) = <i>coñóme</i>.",
-    "Acentúa casi siempre la penúltima sílaba: <i>fratéllo</i>, <i>sorélla</i>, <i>nónno</i>."
-  ],
-  quiz: [
-    {q:"“fratello” significa…", o:["hermano","hijo","tío","padre"], a:"hermano", w:"fratello = hermano."},
-    {q:"“nonna” significa…", o:["madre","hermana","abuela","tía"], a:"abuela", w:"nonna = abuela."},
-    {q:"“Mia sorella” significa…", o:["Mi hermana","Su hermana","Tu hermana","Mi madre"], a:"Mi hermana", w:"Mia = mi (femenino); sorella = hermana."},
-    {q:"¿Cómo dices “mi marido”?", o:["mia marito","mio marito","la mio marito","tuo marito"], a:"mio marito", w:"Marito es masculino: mio marito."},
-    {q:"“moglie” significa…", o:["esposa","hermana","hija","tía"], a:"esposa", w:"moglie = esposa."},
-    {q:"Completa: “___ madre si chiama Anna”", o:["Mio","Tuo","Suoi","Mia"], a:"Mia", w:"Madre es femenino: mia madre."}
-  ]
-},
-{
-  title: "En el bar y el restaurante",
-  sub: "Vorrei un caffè",
-  intro: [
-    "Para pedir con educación se usa <b>Vorrei</b> (querría): <i>Vorrei un caffè, per favore</i>. Es más amable que “quiero”.",
-    "Las comidas del día: <b>la colazione</b> (desayuno), <b>il pranzo</b> (comida del mediodía) y <b>la cena</b> (cena).",
-    "Al terminar: <b>Il conto, per favore</b> (la cuenta, por favor). Para preguntar un precio: <b>Quanto costa?</b>. Y antes de comer: <b>Buon appetito!</b>"
-  ],
-  vocab: [
-    ["Vorrei un caffè", "Querría un café", "vorréi un cafè"],
-    ["un cappuccino", "un capuchino", "un capuchíno"],
-    ["un bicchiere d’acqua", "un vaso de agua", "un bikiére dácua"],
-    ["acqua naturale", "agua sin gas", "ácua naturále"],
-    ["acqua frizzante", "agua con gas", "ácua fridsánte"],
-    ["il pane", "el pan", "il páne"],
-    ["il vino / la birra", "el vino / la cerveza", "il víno / la bírra"],
-    ["la colazione", "el desayuno", "la colatsióne"],
-    ["il pranzo", "la comida del mediodía", "il prándso"],
-    ["la cena", "la cena", "la chéna"],
-    ["Il conto, per favore", "La cuenta, por favor", "il cónto, per favóre"],
-    ["Quanto costa?", "¿Cuánto cuesta?", "cuánto cósta"],
-    ["Buon appetito!", "¡Que aproveche!", "buón appetíto"],
-    ["Mi piace", "Me gusta", "mi piáche"]
-  ],
-  tips: [
-    "En Italia el <b>cappuccino</b> se toma solo por la mañana; después de comer lo normal es pedir un <b>caffè</b> (un espresso corto).",
-    "<b>ce</b> y <b>ci</b> suenan “che” y “chi”: cena = <i>chéna</i>, cappuccino = <i>capuchíno</i>.",
-    "<b>zz</b> suena como “ts” fuerte: pizza = <i>pítsa</i>, pranzo = <i>prándso</i>."
-  ],
-  quiz: [
-    {q:"“Il conto, per favore” significa…", o:["El café, por favor","La cuenta, por favor","El pan, por favor","El menú, por favor"], a:"La cuenta, por favor", w:"Il conto = la cuenta."},
-    {q:"¿Cómo pides un café con educación?", o:["Vorrei un caffè","Ho un caffè","Sono un caffè","Mi chiamo caffè"], a:"Vorrei un caffè", w:"Vorrei = querría."},
-    {q:"“Acqua frizzante” es…", o:["agua fría","agua con gas","agua sin gas","agua caliente"], a:"agua con gas", w:"Frizzante = con gas."},
-    {q:"“Il pranzo” es…", o:["el desayuno","la merienda","la comida del mediodía","la cena"], a:"la comida del mediodía", w:"Pranzo = comida del mediodía."},
-    {q:"“Buon appetito!” significa…", o:["¡Que aproveche!","¡Buenas noches!","¡Salud!","¡Gracias!"], a:"¡Que aproveche!", w:"Se dice antes de empezar a comer."},
-    {q:"¿Cómo preguntas el precio?", o:["Dov’è?","Come stai?","Quanto costa?","Quanti anni hai?"], a:"Quanto costa?", w:"Quanto costa? = ¿cuánto cuesta?"}
-  ]
-},
-{
-  title: "Días, hora y lugares",
-  sub: "Dov’è la stazione?",
-  intro: [
-    "Los días de la semana empiezan con minúscula: <b>lunedì, martedì, mercoledì, giovedì, venerdì, sabato, domenica</b>.",
-    "Para la hora: <b>Che ore sono?</b> y respondes <b>Sono le tre</b> (son las tres). La una es la excepción: <b>È l’una</b>.",
-    "Para encontrar lugares: <b>Dov’è…?</b> (¿dónde está…?) y las direcciones: <b>a destra</b> (a la derecha), <b>a sinistra</b> (a la izquierda) y <b>dritto</b> (todo recto)."
-  ],
-  vocab: [
-    ["lunedì", "lunes", "lunedí"],
-    ["martedì", "martes", "martedí"],
-    ["mercoledì", "miércoles", "mercoledí"],
-    ["giovedì", "jueves", "yovedí"],
-    ["venerdì", "viernes", "venerdí"],
-    ["sabato", "sábado", "sábato"],
-    ["domenica", "domingo", "doménica"],
-    ["Che ore sono?", "¿Qué hora es?", "qué óre sóno"],
-    ["Sono le tre", "Son las tres", "sóno le tré"],
-    ["È l’una", "Es la una", "é lúna"],
-    ["Dov’è la stazione?", "¿Dónde está la estación?", "dové la statsióne"],
-    ["Dov’è il bagno?", "¿Dónde está el baño?", "dové il báño"],
-    ["l’albergo", "el hotel", "lalbérgo"],
-    ["la farmacia", "la farmacia", "la farmachía"],
-    ["a destra", "a la derecha", "a déstra"],
-    ["a sinistra", "a la izquierda", "a sinístra"],
-    ["dritto", "todo recto", "drítto"]
-  ],
-  tips: [
-    "<b>gi</b> suena “y” suave: giovedì = <i>yovedí</i>, giorno = <i>yórno</i>.",
-    "El acento escrito (<b>è, ì</b>) marca la sílaba fuerte: lunedì = <i>lunedí</i>.",
-    "<b>Dov’è</b> es la contracción de “dove è”. Se escribe con apóstrofo."
-  ],
-  quiz: [
-    {q:"“mercoledì” es…", o:["martes","miércoles","jueves","viernes"], a:"miércoles", w:"mercoledì = miércoles."},
-    {q:"“Dov’è la stazione?” significa…", o:["¿Dónde está la estación?","¿Cuánto cuesta la estación?","¿Qué es la estación?","¿Cuándo sale?"], a:"¿Dónde está la estación?", w:"Dove è = dónde está."},
-    {q:"“a sinistra” significa…", o:["a la derecha","a la izquierda","todo recto","detrás"], a:"a la izquierda", w:"sinistra = izquierda."},
-    {q:"“Sono le tre” significa…", o:["Son las tres","Tengo tres","Es la tres","Tres veces"], a:"Son las tres", w:"Sono le tre = son las tres."},
-    {q:"“dritto” significa…", o:["todo recto","a la derecha","atrás","cerca"], a:"todo recto", w:"Dritto = todo recto."},
-    {q:"¿Cómo preguntas por el baño?", o:["Che ore sono?","Dov’è il bagno?","Come stai?","Quanto costa?"], a:"Dov’è il bagno?", w:"Dov’è = ¿dónde está?; il bagno = el baño."}
-  ]
-}
-];
+  var APP = window.APP;
+  var LESSONS = APP.LESSONS;
 
-/* ====================== ESTADO Y PROGRESO ====================== */
-const PASS = 5; // aciertos necesarios (de 6) para desbloquear la siguiente lección
-const KEY = "italiano-a1-progreso";
-const KEYFS = "italiano-a1-letra";
-let progress = {};
-try { progress = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { progress = {}; }
-function save(skipPush) { try { localStorage.setItem(KEY, JSON.stringify(progress)); } catch (e) {} if (!skipPush) fbPush(); }
-let fs = 19;
-try { fs = parseInt(localStorage.getItem(KEYFS), 10) || 19; } catch (e) {}
-function applyFs() { document.documentElement.style.fontSize = fs + "px"; try { localStorage.setItem(KEYFS, String(fs)); } catch (e) {} }
-applyFs();
+  var PASS = 0.8;
+  var NQ = 10;
+  var KEY = APP.id + '-v1';
 
-const app = document.getElementById("app");
-let st = { view: "home", i: 0, qi: 0, score: 0, answered: null, opts: [] };
+  /* ---------- Utilidades ---------- */
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function uniq(a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }); }
+  function pick(arr, n, exclude) {
+    return shuffle(arr.filter(function (x) { return x !== exclude; })).slice(0, n);
+  }
+  var CONTR = [
+    [/\bi'm\b/g, 'i am'],
+    [/\b(he|she|it|that|what|there|here|who)'s\b/g, '$1 is'],
+    [/\b(you|we|they)'re\b/g, '$1 are'],
+    [/\bdon't\b/g, 'do not'],
+    [/\bi'll\b/g, 'i will']
+  ];
+  function norm(s) {
+    s = String(s).toLowerCase().replace(/[’‘]/g, "'");
+    if (APP.contractions) CONTR.forEach(function (c) { s = s.replace(c[0], c[1]); });
+    s = s.replace(/œ/g, 'oe').replace(/æ/g, 'ae').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return s.replace(/[.,!?¡¿;:']/g, '').replace(/\s+/g, ' ').trim();
+  }
+  function words(s) { return s.replace(/[.,!?]/g, '').split(' ').filter(Boolean); }
+  function items(L) { return L.items.map(function (a) { return { en: a[0], pron: a[1], es: a[2] }; }); }
 
-function unlocked(i) { return i === 0 || progress[i - 1] >= PASS; }
-function doneCount() { return LESSONS.filter((_, i) => progress[i] >= PASS).length; }
-function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
-function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
-
-/* ====================== AUDIO ====================== */
-function say(text) {
+  /* ---------- Progreso (se guarda en el móvil) ---------- */
+  var state = { cur: 0, best: {}, passed: {}, known: {}, epoch: 0, updatedAt: 0 };
   try {
-    if (!("speechSynthesis" in window)) { toast("Este móvil no tiene voz para reproducir audio."); return; }
+    var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (saved) {
+      state.cur = saved.cur || 0;
+      state.best = saved.best || {};
+      state.passed = saved.passed || {};
+      state.known = saved.known || {};
+      state.epoch = saved.epoch || 0;
+      state.updatedAt = saved.updatedAt || 0;
+    }
+  } catch (e) {}
+  function save(skipCloud) {
+    if (!skipCloud) state.updatedAt = Date.now();
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    if (!skipCloud) cloudPush();
+  }
+  function unlocked(i) { return i === 0 || !!state.passed[i - 1]; }
+  if (!unlocked(state.cur)) state.cur = 0;
+  function L() { return LESSONS[state.cur]; }
+
+  /* ---------- Voz del idioma ---------- */
+  var voice = null;
+  function loadVoice() {
+    if (!('speechSynthesis' in window)) return;
+    var vs = speechSynthesis.getVoices();
+    var want = APP.speechLang.toLowerCase();
+    function lg(v) { return (v.lang || '').toLowerCase().replace('_', '-'); }
+    voice = vs.filter(function (v) { return lg(v) === want; })[0] ||
+            vs.filter(function (v) { return lg(v).indexOf(APP.voicePrefix) === 0; })[0] || null;
+  }
+  if ('speechSynthesis' in window) { loadVoice(); speechSynthesis.onvoiceschanged = loadVoice; }
+  function speak(text, slow) {
+    if (!('speechSynthesis' in window)) { alert('Este móvil no tiene voz en ' + APP.langName + ' disponible.'); return; }
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text.replace(/\s*\/\s*/g, ", "));
-    u.lang = "it-IT"; u.rate = 0.85;
-    const v = speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().replace("_", "-").startsWith("it"));
-    if (v) u.voice = v;
+    if (APP.tts) text = APP.tts(text);
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = voice ? voice.lang : APP.speechLang;
+    if (voice) u.voice = voice;
+    u.rate = slow ? 0.6 : 0.85;
     speechSynthesis.speak(u);
-  } catch (e) {}
-}
-if ("speechSynthesis" in window) { try { speechSynthesis.getVoices(); } catch (e) {} }
-let toastT;
-function toast(m) {
-  const old = document.querySelector(".toast"); if (old) old.remove();
-  const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t);
-  clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 3000);
-}
-
-/* ====================== VISTAS ====================== */
-function go(view, extra) { Object.assign(st, { view }, extra || {}); render(); window.scrollTo(0, 0); }
-
-function render() {
-  updateBar();
-  if (st.view === "home") return home();
-  if (st.view === "lesson") return lesson();
-  if (st.view === "quiz") return quiz();
-  if (st.view === "result") return result();
-  if (st.view === "sync") return syncView();
-}
-
-function home() {
-  const n = doneCount(), pct = Math.round(n / LESSONS.length * 100);
-  let h = `<div class="hero"><h1>Italiano Básico A1</h1><p>Ocho lecciones desde cero, con audio y ejercicios.</p>
-    <div class="bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>
-    <p style="margin-top:.5rem">${n} de ${LESSONS.length} lecciones superadas</p></div>`;
-  LESSONS.forEach((L, i) => {
-    const ok = progress[i] >= PASS, open = unlocked(i);
-    h += `<button class="row ${ok ? "done" : ""}" data-i="${i}" ${open ? "" : "disabled"}>
-      <span class="num">${ok ? "✓" : open ? i + 1 : "🔒"}</span>
-      <span><b>${esc(L.title)}</b><small>${esc(L.sub)}${progress[i] != null ? " · mejor resultado: " + progress[i] + "/6" : ""}</small></span></button>`;
-  });
-  h += `<p class="prog">Para pasar a la siguiente lección necesitas ${PASS} aciertos de 6. Puedes repetir los ejercicios las veces que quieras.</p>
-    <div class="tools"><button class="btn alt small" id="fm">A−</button><button class="btn alt small" id="fp">A+</button>
-    <button class="btn alt small" id="sy">☁ ${FB.user ? "Sincronizado" : "Sincronizar"}</button>
-    <button class="btn alt small" id="rs">Borrar progreso</button></div>`;
-  app.innerHTML = h;
-  app.querySelectorAll(".row").forEach(b => b.onclick = () => go("lesson", { i: +b.dataset.i }));
-  document.getElementById("fm").onclick = () => { fs = Math.max(16, fs - 2); applyFs(); };
-  document.getElementById("fp").onclick = () => { fs = Math.min(28, fs + 2); applyFs(); };
-  document.getElementById("rs").onclick = () => { if (confirm("¿Borrar todo el progreso?")) { progress = {}; save(); render(); } };
-  document.getElementById("sy").onclick = openSync;
-}
-
-function lesson() {
-  const L = LESSONS[st.i];
-  let h = `<div class="top"><button class="btn alt small" id="back">‹ Lecciones</button><span class="prog">Lección ${st.i + 1} de ${LESSONS.length}</span></div>
-    <h1>${esc(L.title)}</h1>`;
-  L.intro.forEach(p => h += `<p>${p}</p>`);
-  h += `<h2>Vocabulario</h2><p class="prog">Toca cada fila para escuchar la pronunciación.</p>`;
-  L.vocab.forEach((v, k) => {
-    h += `<button class="vocab" data-k="${k}"><span><span class="it">${esc(v[0])}</span><span class="es">${esc(v[1])}</span><span class="pr">se lee: ${esc(v[2])}</span></span><span class="spk" aria-hidden="true">🔊</span></button>`;
-  });
-  h += `<h2>Pronunciación</h2>`;
-  L.tips.forEach(t => h += `<div class="tip">${t}</div>`);
-  h += `<p style="margin-top:1.5rem"><button class="btn" id="go" style="width:100%">Hacer los ejercicios</button></p>`;
-  app.innerHTML = h;
-  document.getElementById("back").onclick = () => go("home");
-  document.getElementById("go").onclick = () => go("quiz", { qi: 0, score: 0, answered: null, opts: shuffle(L.quiz[0].o) });
-  app.querySelectorAll(".vocab").forEach(b => b.onclick = () => say(L.vocab[+b.dataset.k][0]));
-}
-
-function quiz() {
-  const L = LESSONS[st.i], Q = L.quiz[st.qi];
-  let h = `<div class="top"><button class="btn alt small" id="back">‹ Salir</button><span class="prog">Pregunta ${st.qi + 1} de ${L.quiz.length}</span></div>
-    <h2 style="margin-top:.5rem">${esc(L.title)}</h2><div class="q">${esc(Q.q)}</div>`;
-  st.opts.forEach((o, k) => {
-    let cls = "";
-    if (st.answered !== null) { if (o === Q.a) cls = "ok"; else if (o === st.answered) cls = "bad"; }
-    h += `<button class="opt ${cls}" data-k="${k}" ${st.answered !== null ? "disabled" : ""}>${esc(o)}</button>`;
-  });
-  if (st.answered !== null) {
-    const good = st.answered === Q.a;
-    h += `<div class="fb ${good ? "ok" : "bad"}" role="status"><b>${good ? "✓ Correcto" : "✗ No es esa. La correcta es: " + esc(Q.a)}</b><br>${esc(Q.w)}</div>
-      <button class="btn" id="next" style="width:100%">${st.qi + 1 < L.quiz.length ? "Siguiente" : "Ver resultado"}</button>`;
   }
-  app.innerHTML = h;
-  document.getElementById("back").onclick = () => go("lesson");
-  app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
-    st.answered = st.opts[+b.dataset.k];
-    if (st.answered === Q.a) st.score++;
-    render();
+
+  /* ---------- Navegación ---------- */
+  var tabs = ['aprender', 'tarjetas', 'practica', 'plan', 'datos'];
+  var quiz = null, cardIdx = 0, flipped = false, curTab = 'aprender';
+
+  function show(tab) {
+    curTab = tab;
+    tabs.forEach(function (t) { $('v-' + t).hidden = (t !== tab); });
+    document.querySelectorAll('nav button').forEach(function (b) {
+      if (b.dataset.tab === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    if (tab === 'aprender') renderLesson();
+    if (tab === 'tarjetas') renderCards();
+    if (tab === 'practica') renderPracticeHome();
+    if (tab === 'plan') renderPlan();
+    if (tab === 'datos') renderDatos();
+    window.scrollTo(0, 0);
+  }
+  function setLesson(i) {
+    state.cur = i; quiz = null; cardIdx = 0; flipped = false; save(); updateChip();
+  }
+  document.querySelector('nav').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-tab]'); if (b) show(b.dataset.tab);
   });
-  const nx = document.getElementById("next");
-  if (nx) nx.onclick = () => {
-    if (st.qi + 1 < L.quiz.length) { st.qi++; st.answered = null; st.opts = shuffle(L.quiz[st.qi].o); render(); window.scrollTo(0, 0); }
-    else {
-      if (progress[st.i] == null || st.score > progress[st.i]) progress[st.i] = st.score;
-      save(); go("result");
-    }
-  };
-}
 
-function result() {
-  const L = LESSONS[st.i], n = L.quiz.length, pass = st.score >= PASS, last = st.i === LESSONS.length - 1;
-  let h = `<div class="top"><span class="prog">${esc(L.title)}</span></div>
-    <div class="card" style="text-align:center"><div class="big">${st.score} / ${n}</div>
-    <p><b>${pass ? (last ? "¡Has terminado el curso A1! Enhorabuena." : "¡Muy bien! Lección superada.") : "Casi. Repasa la lección y vuelve a intentarlo."}</b></p>
-    <p class="prog">${pass ? "" : `Necesitas ${PASS} aciertos para pasar a la siguiente.`}</p></div>`;
-  if (pass && !last) h += `<button class="btn" id="n" style="width:100%;margin-bottom:.6rem">Siguiente lección</button>`;
-  h += `<button class="btn alt" id="r" style="width:100%;margin-bottom:.6rem">${pass ? "Repetir ejercicios" : "Repasar la lección"}</button>
-    <button class="btn alt" id="h" style="width:100%">Todas las lecciones</button>`;
-  app.innerHTML = h;
-  const nb = document.getElementById("n"); if (nb) nb.onclick = () => go("lesson", { i: st.i + 1 });
-  document.getElementById("r").onclick = () => pass ? go("quiz", { qi: 0, score: 0, answered: null, opts: shuffle(L.quiz[0].o) }) : go("lesson");
-  document.getElementById("h").onclick = () => go("home");
-}
+  function updateChip() {
+    $('chip').textContent = 'Lección ' + (state.cur + 1) + (state.passed[state.cur] ? ' ✓' : '');
+  }
 
-/* ====================== SINCRONIZACIÓN (Firebase) ====================== */
-const FB = { p: null, ready: false, error: false, initDone: false, user: null, auth: null, db: null, au: null, fs: null };
-const K_ACC = "italiano-a1-cuenta", K_MAIL = "italiano-a1-email";
-function lsGet(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }
-function lsSet(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
-function storedAccount() { return lsGet(K_ACC); }
-function fbConfigured() {
-  const c = window.FIREBASE_CONFIG;
-  return !!(c && c.apiKey && String(c.apiKey).indexOf("PEGA") !== 0 && c.projectId && String(c.projectId).indexOf("PEGA") !== 0);
-}
-function barInfo() {
-  if (!fbConfigured()) return null;
-  if (FB.user) return { t: "☁ Sincronizado · " + FB.user.email, cls: "ok" };
-  const em = storedAccount();
-  if (em && !FB.initDone) return { t: (FB.error || !navigator.onLine ? "☁ Sin conexión · " : "☁ Conectando… · ") + em, cls: "" };
-  return { t: "☁ Sin sincronizar · toca para entrar", cls: "" };
-}
-function updateBar() {
-  const b = document.getElementById("syncbar"); if (!b) return;
-  const i = barInfo();
-  if (!i) { b.hidden = true; return; }
-  b.hidden = false; b.className = "syncbar" + (i.cls ? " " + i.cls : ""); b.textContent = i.t;
-}
-function openSync() { go("sync"); fbInit().then(() => { if (st.view === "sync") render(); }); }
+  /* ---------- Lección ---------- */
+  function renderLesson() {
+    var lesson = L(), its = items(lesson), h = '';
+    h += '<h2>Lección ' + (state.cur + 1) + ': ' + esc(lesson.title) + '</h2>';
+    h += '<p class="muted">' + esc(lesson.intro) + ' Toca una frase para oírla; el botón 🐢 la dice más despacio.</p>';
+    var f = its[0];
+    h += '<button class="hero' + (f.en.length > 16 ? ' long' : '') + '" data-say="' + esc(f.en) + '">' +
+         '<span class="en">' + esc(f.en) + '</span><span class="pron">' + esc(f.pron) + '</span>' +
+         '<span class="es">' + esc(f.es) + '</span><span class="hint">Toca para escuchar</span></button>';
+    its.slice(1).forEach(function (p) {
+      h += '<div class="row"><div class="txt"><div class="en">' + esc(p.en) + '</div>' +
+           '<div class="pron">' + esc(p.pron) + '</div><div class="es">' + esc(p.es) + '</div></div>' +
+           '<button class="icon-btn" data-slow="' + esc(p.en) + '" aria-label="Escuchar despacio">🐢</button>' +
+           '<button class="icon-btn" data-say="' + esc(p.en) + '" aria-label="Escuchar">🔊</button></div>';
+    });
+    lesson.tips.forEach(function (t) { h += '<div class="tip">' + t + '</div>'; });
 
-function fbInit() {
-  if (!fbConfigured()) return Promise.resolve();
-  if (FB.p) return FB.p;
-  FB.p = (async () => {
-    try {
-      const base = "https://www.gstatic.com/firebasejs/10.14.1/";
-      const [a, au, fsm] = await Promise.all([import(base + "firebase-app.js"), import(base + "firebase-auth.js"), import(base + "firebase-firestore.js")]);
-      const app = a.initializeApp(window.FIREBASE_CONFIG);
-      FB.au = au; FB.fs = fsm; FB.auth = au.getAuth(app); FB.db = fsm.getFirestore(app);
-      FB.ready = true; FB.error = false;
-      au.onAuthStateChanged(FB.auth, async u => {
-        FB.user = u; FB.initDone = true;
-        if (u) { lsSet(K_ACC, u.email); lsSet(K_MAIL, u.email); await fbPull(); }
-        else lsSet(K_ACC, "");
-        updateBar();
-        if (st.view === "home" || st.view === "sync") render();
+    h += '<h3>Conversaciones de ejemplo</h3>';
+    lesson.dialogs.forEach(function (d) {
+      h += '<div class="dialog"><h4>' + esc(d.title) + '</h4>';
+      d.lines.forEach(function (l, k) {
+        h += '<div class="dline"><span class="who' + (k % 2 ? ' b' : '') + '">' + (k % 2 ? 'B' : 'A') + '</span>' +
+             '<div class="txt"><div class="en">' + esc(l[0]) + '</div><div class="es">' + esc(l[1]) + '</div></div>' +
+             '<button class="icon-btn" data-say="' + esc(l[0]) + '" aria-label="Escuchar">🔊</button></div>';
       });
-    } catch (e) {
-      FB.error = true; FB.p = null; updateBar();
-      if (st.view === "sync") render();
-    }
-  })();
-  return FB.p;
-}
-async function fbPull() {
-  try {
-    const ref = FB.fs.doc(FB.db, "usuarios", FB.user.uid);
-    const snap = await FB.fs.getDoc(ref);
-    const remote = (snap.exists() && snap.data().progreso) || {};
-    let changed = false;
-    for (const k in remote) { if (!(progress[k] >= remote[k])) { progress[k] = remote[k]; changed = true; } }
-    if (changed) save(true);
-    await fbPush();
-  } catch (e) {}
-}
-async function fbPush() {
-  if (!FB.ready || !FB.user) return;
-  try { await FB.fs.setDoc(FB.fs.doc(FB.db, "usuarios", FB.user.uid), { progreso: progress, actualizado: FB.fs.serverTimestamp() }); } catch (e) {}
-}
-
-/* ----- Copia de seguridad en archivo ----- */
-const FILE_NAME = "Italiano-Basico-A1";
-const AUTO_KEY = "italiano-a1-copia-auto", LAST_KEY = "italiano-a1-copia-ultima";
-const z2 = n => (n < 10 ? "0" : "") + n;
-function dayStamp() { const d = new Date(); return d.getFullYear() + "-" + z2(d.getMonth() + 1) + "-" + z2(d.getDate()); }
-function timeStamp() { const d = new Date(); return z2(d.getHours()) + "-" + z2(d.getMinutes()); }
-function autoOn() { try { return localStorage.getItem(AUTO_KEY) !== "off"; } catch (e) { return true; } }
-function bmsg(t) { const m = document.getElementById("bmsg"); if (m) m.textContent = t; }
-function exportProgress(auto) {
-  try {
-    const data = { app: "italiano-a1", version: 1, exportedAt: new Date().toISOString(), progreso: progress };
-    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = FILE_NAME + "_" + dayStamp() + "_" + timeStamp() + ".json";
-    document.body.appendChild(a); a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
-    if (!auto) bmsg("Archivo descargado ✓");
-    return true;
-  } catch (e) { if (!auto) bmsg("No se pudo crear el archivo."); return false; }
-}
-/* Al abrir la app: una copia al día, solo si ya hay progreso y la opción está activada */
-function autoBackup() {
-  try {
-    if (!autoOn()) return;
-    if (!Object.keys(progress).length) return;
-    const today = dayStamp();
-    if (lsGet(LAST_KEY) === today) return;
-    if (exportProgress(true)) lsSet(LAST_KEY, today);
-  } catch (e) {}
-}
-function importProgress(file) {
-  const r = new FileReader();
-  r.onload = () => {
-    let ok = false;
-    try {
-      const d = JSON.parse(r.result);
-      if (d && d.app === "italiano-a1" && d.progreso && typeof d.progreso === "object") {
-        for (const k in d.progreso) {
-          const v = Number(d.progreso[k]);
-          if (/^[0-7]$/.test(k) && v >= 0 && v <= 6 && !(progress[k] >= v)) progress[k] = v;
-        }
-        save(); ok = true;
-      }
-    } catch (e) {}
-    render();
-    bmsg(ok ? "Progreso cargado ✓" : "Ese archivo no es de esta app.");
-  };
-  r.onerror = () => bmsg("No se pudo leer el archivo.");
-  r.readAsText(file);
-}
-
-/* ----- Vista Sincronizar ----- */
-function msg(t) { const m = document.getElementById("msg"); if (m) m.textContent = t; }
-function errEs(e) {
-  const c = (e && e.code) || "";
-  if (c === "auth/invalid-credential" || c === "auth/wrong-password" || c === "auth/user-not-found") return "Correo o contraseña incorrectos.";
-  if (c === "auth/email-already-in-use") return "Ya existe una cuenta con ese correo. Pulsa Entrar.";
-  if (c === "auth/weak-password") return "La contraseña debe tener al menos 6 caracteres.";
-  if (c === "auth/invalid-email") return "El correo no es válido.";
-  if (c === "auth/missing-password") return "Escribe la contraseña.";
-  if (c === "auth/network-request-failed") return "Sin conexión. Inténtalo cuando tengas internet.";
-  if (c === "auth/too-many-requests") return "Demasiados intentos. Espera un rato y vuelve a probar.";
-  return "No se pudo completar. Revisa los datos e inténtalo de nuevo.";
-}
-function syncView() {
-  const saved = storedAccount();
-  let h = `<div class="top"><button class="btn alt small" id="back">‹ Lecciones</button></div><h1>Sincronizar</h1>`;
-  if (!fbConfigured()) {
-    h += `<div class="card"><p>La sincronización aún no está activada. Falta pegar los datos de Firebase en el archivo <b>firebase-config.js</b>.</p></div>`;
-  } else if (FB.user) {
-    h += `<div class="card"><p>Sincronizado con <b>${esc(FB.user.email)}</b>.</p>
-      <p class="prog">Tu progreso se guarda en la nube y aparece en cualquier dispositivo donde entres con esta cuenta. En este móvil no tendrás que volver a escribir la contraseña.</p></div>
-      <div class="msg" id="msg" role="status"></div>
-      <div class="stack"><button class="btn" id="now">Sincronizar ahora</button><button class="btn alt" id="out">Cerrar sesión</button></div>`;
-  } else if (saved && !FB.initDone) {
-    h += `<div class="card"><p>Cuenta guardada: <b>${esc(saved)}</b>.</p>
-      <p class="prog">${FB.error || !navigator.onLine ? "Ahora no hay conexión: tu progreso está a salvo en este móvil y se sincronizará al volver." : "Conectando…"}</p></div>
-      ${FB.error ? '<button class="btn" id="retry" style="width:100%">Reintentar</button>' : ""}`;
-  } else if (FB.error) {
-    h += `<div class="card"><p>No se pudo conectar con el servicio. Comprueba que tienes internet.</p></div><button class="btn" id="retry" style="width:100%">Reintentar</button>`;
-  } else if (!FB.ready) {
-    h += `<div class="card"><p>Conectando…</p></div>`;
-  } else {
-    h += `<p>Entra con tu correo para guardar tu progreso en la nube y verlo en todos tus dispositivos. Solo tendrás que hacerlo una vez en cada móvil. Si es la primera vez, pulsa <b>Crear cuenta</b>.</p>
-      <form id="s-form" autocomplete="on">
-      <label class="lbl" for="em">Correo electrónico</label>
-      <input class="in" id="em" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" inputmode="email" value="${esc(lsGet(K_MAIL))}">
-      <label class="lbl" for="pw">Contraseña (mínimo 6 caracteres)</label>
-      <input class="in" id="pw" name="password" type="password" autocomplete="current-password">
-      <div class="msg" id="msg" role="status"></div>
-      <div class="stack"><button class="btn" id="in" type="submit">Entrar</button><button class="btn alt" id="up" type="button">Crear cuenta</button><button class="btn alt small" id="fg" type="button">He olvidado la contraseña</button></div>
-      </form>`;
+      var all = d.lines.map(function (l) { return l[0]; }).join(' ... ');
+      h += '<button class="btn ghost" data-say="' + esc(all) + '">🔊 Escuchar toda la conversación</button></div>';
+    });
+    h += '<button class="btn" id="go-practica">Practicar lo aprendido</button>';
+    $('v-aprender').innerHTML = h;
   }
-  h += `<h2>Copia de seguridad en archivo</h2>
-    <p class="prog">El archivo se llama «${FILE_NAME}» con la fecha y la hora. Con la copia automática, al abrir la app se descarga una al día si ya has avanzado.</p>
-    <div class="msg" id="bmsg" role="status"></div>
-    <div class="stack"><button class="btn alt" id="b-exp">Descargar copia ahora</button><button class="btn alt" id="b-imp">Cargar un archivo de copia</button>
-    <button class="btn alt" id="b-auto">Copia automática al abrir: ${autoOn() ? "activada" : "desactivada"}</button></div>
-    <input type="file" id="b-file" accept="application/json,.json" hidden>`;
-  app.innerHTML = h;
-  const $ = id => document.getElementById(id);
-  $("back").onclick = () => go("home");
-  const run = async fn => { msg("Un momento…"); try { await fn(); } catch (e) { msg(errEs(e)); } };
-  if ($("retry")) $("retry").onclick = () => { FB.error = false; FB.p = null; updateBar(); fbInit().then(() => { if (st.view === "sync") render(); }); };
-  if ($("now")) $("now").onclick = () => run(async () => { await fbPull(); msg("Sincronizado ✓"); });
-  if ($("out")) $("out").onclick = () => run(async () => { lsSet(K_ACC, ""); await FB.au.signOut(FB.auth); });
-  if ($("s-form")) {
-    const E = () => $("em").value.trim(), P = () => $("pw").value;
-    $("s-form").onsubmit = e => { e.preventDefault(); run(() => FB.au.signInWithEmailAndPassword(FB.auth, E(), P())); };
-    $("up").onclick = () => run(() => FB.au.createUserWithEmailAndPassword(FB.auth, E(), P()));
-    $("fg").onclick = () => run(async () => {
-      if (!E()) { msg("Escribe tu correo arriba y vuelve a pulsar."); return; }
-      await FB.au.sendPasswordResetEmail(FB.auth, E());
-      msg("Te hemos enviado un correo para cambiar la contraseña.");
+
+  /* ---------- Tarjetas ---------- */
+  function renderCards() {
+    var its = items(L());
+    if (cardIdx >= its.length) cardIdx = 0;
+    var p = its[cardIdx];
+    var knownCount = its.filter(function (x) { return state.known[x.en]; }).length;
+    var h = '<h2>Tarjetas · Lección ' + (state.cur + 1) + '</h2>';
+    h += '<p class="counter">' + (cardIdx + 1) + ' de ' + its.length + ' · las sé: ' + knownCount + '</p>';
+    h += '<button class="card" id="card" aria-live="polite">';
+    if (!flipped) {
+      h += '<span class="big' + (p.en.length > 20 ? ' long' : '') + '">' + esc(p.en) + '</span><span class="small">Toca para ver el significado</span>';
+    } else {
+      h += '<span class="big' + (p.es.length > 20 ? ' long' : '') + '">' + esc(p.es) + '</span><span class="pron">' + esc(p.pron) + '</span>' +
+           '<span class="small">' + esc(p.en) + '</span>';
+    }
+    h += '</button>';
+    h += '<div class="pair"><button class="btn ghost" data-say="' + esc(p.en) + '">🔊 Oír</button>' +
+         '<button class="btn ghost" data-slow="' + esc(p.en) + '">🐢 Despacio</button></div>';
+    h += '<div class="pair"><button class="btn ghost" id="c-prev">← Anterior</button>' +
+         '<button class="btn ghost" id="c-next">Siguiente →</button></div>';
+    h += '<button class="btn" id="c-know">' + (state.known[p.en] ? '✓ Ya la sé (toca para quitar)' : 'Ya me la sé') + '</button>';
+    $('v-tarjetas').innerHTML = h;
+  }
+
+  /* ---------- Práctica ---------- */
+  function buildQuiz(lesson) {
+    var its = items(lesson);
+    var ens = its.map(function (p) { return p.en; });
+    var ess = uniq(its.map(function (p) { return p.es; }));
+    var used = {};
+    function choose(filter) {
+      var c = shuffle(its.filter(filter));
+      var fresh = c.filter(function (x) { return !used[x.en]; });
+      var p = (fresh.length ? fresh : c)[0];
+      if (p) used[p.en] = 1;
+      return p;
+    }
+    function any() { return true; }
+    function short(p) { return words(p.en).length <= 4; }
+    function mid(p) { var n = words(p.en).length; return n >= 3 && n <= 7; }
+
+    function qChooseEs(p) {
+      return { type: 'choose', prompt: '¿Qué significa “' + p.en + '”?', say: null,
+               options: shuffle([p.es].concat(pick(ess, 3, p.es))), answer: p.es, show: p.en + ' = ' + p.es };
+    }
+    function qChooseEn(p) {
+      return { type: 'choose', prompt: '¿Cómo dices “' + p.es.replace(/\.$/, '') + '” en ' + APP.langName + '?', say: null,
+               options: shuffle([p.en].concat(pick(ens, 3, p.en))), answer: p.en, show: p.en };
+    }
+    function qListen(p) {
+      return { type: 'choose', prompt: 'Escucha y elige qué significa.', say: p.en,
+               options: shuffle([p.es].concat(pick(ess, 3, p.es))), answer: p.es, show: p.en + ' = ' + p.es };
+    }
+    function qType(p) {
+      return { type: 'type', prompt: 'Escribe en ' + APP.langName + ': “' + p.es.replace(/\.$/, '') + '”', answer: p.en, show: p.en };
+    }
+    function qOrder(p) {
+      var w = words(p.en);
+      return { type: 'order', prompt: 'Ordena la frase: “' + p.es.replace(/\.$/, '') + '”', words: shuffle(w), answer: w.join(' '), show: p.en };
+    }
+
+    var seq = ['ce', 'li', 'ee', 'ty', 'or', 'ee', 'li', 'ty', 'or', 'ce'];
+    var qs = seq.slice(0, NQ).map(function (k) {
+      var p;
+      if (k === 'ty') { p = choose(short); return p ? qType(p) : qChooseEn(choose(any)); }
+      if (k === 'or') { p = choose(mid);   return p ? qOrder(p) : qChooseEn(choose(any)); }
+      if (k === 'ce') return qChooseEs(choose(any));
+      if (k === 'ee') return qChooseEn(choose(any));
+      return qListen(choose(any));
+    });
+    return { lesson: state.cur, qs: qs, i: 0, score: 0, answered: false, picked: [], chosen: null, typed: '', saved: false };
+  }
+
+  function renderPracticeHome() {
+    if (quiz && quiz.lesson !== state.cur) quiz = null;
+    if (quiz && quiz.i < quiz.qs.length) { renderQuestion(); return; }
+    if (quiz && quiz.i >= quiz.qs.length) { renderResult(); return; }
+    var h = '<h2>Práctica · Lección ' + (state.cur + 1) + '</h2>';
+    h += '<p>' + NQ + ' ejercicios cortos de esta lección. Para dominarla necesitas al menos un 80 % de aciertos.</p>';
+    var b = state.best[state.cur];
+    if (b) h += '<p class="muted">Tu mejor resultado: ' + b + ' de ' + NQ + (state.passed[state.cur] ? ' ✓ Lección dominada' : '') + '.</p>';
+    h += '<button class="btn" id="q-start">Empezar</button>';
+    $('v-practica').innerHTML = h;
+  }
+
+  function renderQuestion() {
+    var q = quiz.qs[quiz.i];
+    var pct = Math.round((quiz.i / quiz.qs.length) * 100);
+    var h = '<div class="counter">Ejercicio ' + (quiz.i + 1) + ' de ' + quiz.qs.length + '</div>';
+    h += '<div class="bar"><i style="width:' + pct + '%"></i></div>';
+    h += '<div class="q">' + esc(q.prompt) + '</div>';
+    if (q.say) h += '<div class="pair"><button class="btn ghost" data-say="' + esc(q.say) + '">🔊 Oír</button>' +
+                    '<button class="btn ghost" data-slow="' + esc(q.say) + '">🐢 Despacio</button></div>';
+
+    if (q.type === 'choose') {
+      q.options.forEach(function (o, k) {
+        var cls = 'opt';
+        if (quiz.answered) { if (o === q.answer) cls += ' ok'; else if (quiz.chosen === o) cls += ' bad'; }
+        h += '<button class="' + cls + '" data-opt="' + k + '"' + (quiz.answered ? ' disabled' : '') + '>' + esc(o) + '</button>';
+      });
+    } else if (q.type === 'type') {
+      h += '<input type="text" id="typed" autocomplete="off" autocapitalize="sentences" spellcheck="false" ' +
+           (quiz.answered ? 'disabled value="' + esc(quiz.typed || '') + '"' : '') + ' placeholder="Escribe aquí">';
+      if (!quiz.answered) h += '<button class="btn" id="q-check">Comprobar</button>';
+    } else if (q.type === 'order') {
+      h += '<div class="answer-area">';
+      quiz.picked.forEach(function (idx, n) {
+        h += '<button class="tile" data-un="' + n + '"' + (quiz.answered ? ' disabled' : '') + '>' + esc(q.words[idx]) + '</button>';
+      });
+      h += '</div><div class="tiles">';
+      q.words.forEach(function (w, idx) {
+        h += '<button class="tile' + (quiz.picked.indexOf(idx) > -1 ? ' used' : '') + '" data-tile="' + idx + '">' + esc(w) + '</button>';
+      });
+      h += '</div>';
+      if (!quiz.answered) h += '<button class="btn" id="q-check"' + (quiz.picked.length ? '' : ' disabled') + '>Comprobar</button>';
+    }
+
+    if (quiz.answered) {
+      h += '<div class="feedback ' + (quiz.correct ? 'ok' : 'bad') + '">' +
+           (quiz.correct ? '<b>¡Correcto!</b>' : '<b>Casi.</b> Se dice: ' + esc(q.show)) + '</div>';
+      var sayText = q.type === 'choose' && q.say ? q.say : (q.type === 'choose' ? (q.show.split(' = ')[0]) : q.show);
+      h += '<div class="pair"><button class="btn ghost" data-say="' + esc(sayText) + '">🔊 Oír</button>' +
+           '<button class="btn" id="q-next">' + (quiz.i === quiz.qs.length - 1 ? 'Ver resultado' : 'Siguiente') + '</button></div>';
+    }
+    $('v-practica').innerHTML = h;
+    if (q.type === 'type' && !quiz.answered) { var t = $('typed'); if (t) t.focus(); }
+  }
+
+  function finishAnswer(ok) {
+    quiz.answered = true; quiz.correct = ok;
+    if (ok) quiz.score++;
+    renderQuestion();
+  }
+
+  function renderResult() {
+    var total = quiz.qs.length, ok = quiz.score / total >= PASS;
+    if (!quiz.saved) {
+      quiz.saved = true;
+      if (quiz.score > (state.best[quiz.lesson] || 0)) state.best[quiz.lesson] = quiz.score;
+      if (ok) state.passed[quiz.lesson] = true;
+      save(); updateChip();
+    }
+    var last = quiz.lesson === LESSONS.length - 1;
+    var h = '<h2>Resultado</h2><div class="score">' + quiz.score + ' / ' + total + '</div>';
+    if (ok && last) {
+      h += '<div class="feedback ok"><b>¡Has completado el curso!</b> Ya puedes saludar, pedir, preguntar y mantener una conversación sencilla en ' + APP.langName + '. Enhorabuena.</div>';
+    } else if (ok) {
+      h += '<div class="feedback ok"><b>¡Lección ' + (quiz.lesson + 1) + ' dominada!</b> Se ha abierto la lección ' + (quiz.lesson + 2) + ': ' + esc(LESSONS[quiz.lesson + 1].title) + '.</div>';
+      h += '<button class="btn" id="next-lesson">Ir a la lección ' + (quiz.lesson + 2) + '</button>';
+    } else {
+      h += '<div class="feedback bad"><b>Todavía no.</b> Necesitas al menos un 80 %. Repasa la lección y las tarjetas y vuelve a intentarlo, sin prisa.</div>';
+    }
+    h += '<button class="btn ' + (ok ? 'ghost' : '') + '" id="q-again">Repetir práctica</button>';
+    h += '<button class="btn ghost" id="to-cards">Repasar tarjetas</button>';
+    $('v-practica').innerHTML = h;
+  }
+
+  /* ---------- Plan ---------- */
+  function renderPlan() {
+    var h = '<h2>Plan de aprendizaje</h2>';
+    h += '<p class="muted">Una lección cada vez. La siguiente se abre al dominar la actual (80 % en la práctica).</p>';
+    LESSONS.forEach(function (lesson, i) {
+      var open = unlocked(i), done = !!state.passed[i];
+      var cls = 'lesson-item' + (open ? '' : ' locked') + (done ? ' done' : '') + (i === state.cur ? ' current' : '');
+      var st = done ? '✓ Dominada (' + state.best[i] + ' de ' + NQ + ')' : (open ? (i === state.cur ? 'En curso' : 'Disponible') : 'Se abre al dominar la anterior');
+      h += '<button class="' + cls + '" data-lesson="' + i + '"' + (open ? '' : ' disabled') + '>' +
+           '<span class="n">' + (done ? '✓' : (open ? (i + 1) : '🔒')) + '</span>' +
+           '<span><span style="display:block"><b>' + (i + 1) + '. ' + esc(lesson.title) + '</b></span><span class="state">' + st + '</span></span></button>';
+    });
+    $('v-plan').innerHTML = h;
+  }
+  function renderDatos() {
+    $('v-datos').innerHTML = '<h2>Datos</h2>' + syncCard();
+  }
+  function refreshData() {
+    if (curTab === 'plan') renderPlan(); else if (curTab === 'datos') renderDatos();
+  }
+
+  /* ---------- Eventos ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var say = t.closest('[data-say]'); if (say) { speak(say.dataset.say, false); return; }
+    var slow = t.closest('[data-slow]'); if (slow) { speak(slow.dataset.slow, true); return; }
+
+    var les = t.closest('[data-lesson]');
+    if (les) { setLesson(+les.dataset.lesson); show('aprender'); return; }
+    if (t.closest('#reset')) {
+      if (confirm('¿Seguro que quieres borrar todo tu progreso? Antes se descargará una copia, por si te arrepientes.')) {
+        exportProgress(true);
+        state = { cur: 0, best: {}, passed: {}, known: {}, epoch: (state.epoch || 0) + 1, updatedAt: 0 }; quiz = null; cardIdx = 0; flipped = false;
+        save(); updateChip(); refreshData();
+      }
+      return;
+    }
+
+    if (t.closest('#go-practica')) { show('practica'); quiz = buildQuiz(L()); renderQuestion(); return; }
+    if (t.closest('#q-start')) { quiz = buildQuiz(L()); renderQuestion(); return; }
+    if (t.closest('#q-again')) { quiz = buildQuiz(L()); renderQuestion(); return; }
+    if (t.closest('#next-lesson')) { setLesson(state.cur + 1); show('aprender'); return; }
+    if (t.closest('#to-cards')) { show('tarjetas'); return; }
+
+    if (t.closest('#card')) { flipped = !flipped; renderCards(); return; }
+    var n = L().items.length;
+    if (t.closest('#c-next')) { cardIdx = (cardIdx + 1) % n; flipped = false; renderCards(); return; }
+    if (t.closest('#c-prev')) { cardIdx = (cardIdx - 1 + n) % n; flipped = false; renderCards(); return; }
+    if (t.closest('#c-know')) {
+      var en = L().items[cardIdx][0];
+      if (state.known[en]) delete state.known[en]; else state.known[en] = true;
+      save(); renderCards(); return;
+    }
+
+    if (!quiz || quiz.i >= quiz.qs.length) return;
+    var q = quiz.qs[quiz.i];
+
+    var opt = t.closest('[data-opt]');
+    if (opt && !quiz.answered) {
+      var val = q.options[+opt.dataset.opt];
+      quiz.chosen = val; finishAnswer(val === q.answer); return;
+    }
+    var tile = t.closest('[data-tile]');
+    if (tile && !quiz.answered) {
+      var idx = +tile.dataset.tile;
+      if (quiz.picked.indexOf(idx) === -1) quiz.picked.push(idx);
+      renderQuestion(); return;
+    }
+    var un = t.closest('[data-un]');
+    if (un && !quiz.answered) { quiz.picked.splice(+un.dataset.un, 1); renderQuestion(); return; }
+
+    if (t.closest('#q-check') && !quiz.answered) {
+      if (q.type === 'type') {
+        quiz.typed = $('typed').value;
+        finishAnswer(norm(quiz.typed) === norm(q.answer));
+      } else if (q.type === 'order') {
+        var built = quiz.picked.map(function (i) { return q.words[i]; }).join(' ');
+        finishAnswer(norm(built) === norm(q.answer));
+      }
+      return;
+    }
+    if (t.closest('#q-next')) {
+      quiz.i++; quiz.answered = false; quiz.picked = []; quiz.chosen = null; quiz.typed = '';
+      if (quiz.i >= quiz.qs.length) renderResult(); else renderQuestion();
+      return;
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target && e.target.id === 'typed') {
+      var b = $('q-check'); if (b) b.click();
+    }
+  });
+
+  /* ---------- Sincronización con Firebase (opcional) ---------- */
+  var FB_VER = '10.14.1';
+  var fbCfg = window.FIREBASE_CONFIG;
+  var cloud = {
+    cfg: (fbCfg && fbCfg.apiKey && fbCfg.projectId && String(fbCfg.apiKey).indexOf('PEGA') !== 0) ? fbCfg : null,
+    mods: null, auth: null, db: null, user: null, msg: '', timer: null, initDone: false, loading: null
+  };
+
+  function accountEmail() { try { return localStorage.getItem(APP.id + '-cuenta') || ''; } catch (e) { return ''; } }
+  function lastEmail() { try { return localStorage.getItem(APP.id + '-correo') || ''; } catch (e) { return ''; } }
+  function updateSyncBar() {
+    var el = $('syncbar'); if (!el) return;
+    if (!cloud.cfg) { el.hidden = true; return; }
+    var txt, cls;
+    if (cloud.user) {
+      if (cloud.status === 'bad') { txt = '☁ No se pudo sincronizar · toca para ver'; cls = 'bad'; }
+      else if (cloud.status === 'busy') { txt = '☁ Sincronizando…'; cls = 'busy'; }
+      else { txt = '☁ Sincronizado ✓'; cls = 'ok'; }
+    } else if (cloud.offline) { txt = '☁ Sin conexión · se sincronizará al volver'; cls = 'busy'; }
+    else if (!cloud.initDone) { txt = '☁ Conectando…'; cls = 'busy'; }
+    else { txt = '☁ Sin sesión · toca para entrar'; cls = 'warn'; }
+    el.hidden = false; el.textContent = txt; el.className = 'syncbar ' + cls;
+  }
+  function setMsg(m, kind, local) {
+    if (!local) { cloud.msg = m; cloud.status = kind === 'ok' ? 'ok' : kind === 'bad' ? 'bad' : (m ? 'busy' : ''); }
+    var el = $(local ? 'b-msg' : 's-msg');
+    if (el) { el.textContent = m; el.className = 'sync-msg' + (kind ? ' ' + kind : ''); }
+    updateSyncBar();
+  }
+
+  function fbError(e) {
+    var c = (e && e.code) || '';
+    var map = {
+      'auth/invalid-credential': 'El correo o la contraseña no son correctos.',
+      'auth/wrong-password': 'La contraseña no es correcta.',
+      'auth/user-not-found': 'No hay ninguna cuenta con ese correo. Pulsa “Crear cuenta nueva”.',
+      'auth/email-already-in-use': 'Ese correo ya tiene una cuenta. Pulsa “Entrar”.',
+      'auth/weak-password': 'La contraseña es demasiado corta (mínimo 6 caracteres).',
+      'auth/invalid-email': 'El correo no parece válido.',
+      'auth/missing-password': 'Escribe tu contraseña.',
+      'auth/network-request-failed': 'Sin conexión. Inténtalo cuando tengas internet.',
+      'auth/too-many-requests': 'Demasiados intentos. Espera unos minutos.',
+      'auth/operation-not-allowed': 'Falta activar el acceso con correo y contraseña en Firebase (mira LEEME.md).',
+      'permission-denied': 'Firebase no deja guardar: revisa las reglas de Firestore (mira LEEME.md).',
+      'unavailable': 'Sin conexión. Tu progreso está a salvo en este móvil y se sincronizará más tarde.'
+    };
+    return map[c] || 'No se pudo sincronizar (' + (c || 'error') + ').';
+  }
+
+  function loadFirebase() {
+    if (cloud.mods) return Promise.resolve(cloud.mods);
+    if (cloud.loading) return cloud.loading;
+    var base = 'https://www.gstatic.com/firebasejs/' + FB_VER + '/';
+    cloud.loading = Promise.all([
+      import(base + 'firebase-app.js'),
+      import(base + 'firebase-auth.js'),
+      import(base + 'firebase-firestore.js')
+    ]).then(function (m) {
+      var app = m[0].initializeApp(cloud.cfg);
+      cloud.auth = m[1].getAuth(app);
+      try { if (m[1].setPersistence && m[1].browserLocalPersistence) m[1].setPersistence(cloud.auth, m[1].browserLocalPersistence).catch(function () {}); } catch (e) {}
+      cloud.db = m[2].getFirestore(app);
+      cloud.mods = { app: m[0], auth: m[1], fs: m[2] };
+      return cloud.mods;
+    }).catch(function (e) { cloud.loading = null; throw e; });
+    return cloud.loading;
+  }
+
+  function docRef() { return cloud.mods.fs.doc(cloud.db, 'usuarios', cloud.user.uid, 'apps', APP.id); }
+
+  function normRemote(d) {
+    var k = {};
+    (Array.isArray(d.known) ? d.known : []).forEach(function (x) { k[x] = true; });
+    return { cur: d.cur || 0, best: d.best || {}, passed: d.passed || {}, known: k, epoch: d.epoch || 0, updatedAt: d.updatedAt || 0 };
+  }
+
+  function mergeStates(a, b) {
+    var ea = a.epoch || 0, eb = b.epoch || 0;
+    if (ea !== eb) return ea > eb ? a : b;                 // un borrado más reciente gana
+    var newer = (a.updatedAt || 0) >= (b.updatedAt || 0) ? a : b;
+    var out = { cur: newer.cur || 0, best: {}, passed: {}, known: Object.assign({}, newer.known || {}),
+                epoch: ea, updatedAt: Math.max(a.updatedAt || 0, b.updatedAt || 0) };
+    [a, b].forEach(function (s) {
+      Object.keys(s.passed || {}).forEach(function (k) { if (s.passed[k]) out.passed[k] = true; });
+      Object.keys(s.best || {}).forEach(function (k) { out.best[k] = Math.max(out.best[k] || 0, s.best[k] || 0); });
+    });
+    return out;
+  }
+
+  function applyState(m) {
+    state.cur = m.cur || 0; state.best = m.best || {}; state.passed = m.passed || {};
+    state.known = m.known || {}; state.epoch = m.epoch || 0; state.updatedAt = m.updatedAt || 0;
+    if (!unlocked(state.cur)) state.cur = 0;
+    save(true);
+    updateChip();
+    refreshData(); if (curTab === 'aprender') renderLesson();
+  }
+
+  function push() {
+    if (!cloud.user || !cloud.mods) return Promise.resolve();
+    var data = { cur: state.cur, best: state.best, passed: state.passed, known: Object.keys(state.known),
+                 epoch: state.epoch || 0, updatedAt: state.updatedAt || Date.now() };
+    return cloud.mods.fs.setDoc(docRef(), data);
+  }
+
+  function pull() {
+    if (!cloud.user || !cloud.mods) return Promise.resolve();
+    setMsg('Sincronizando…');
+    return cloud.mods.fs.getDoc(docRef()).then(function (snap) {
+      if (snap.exists()) applyState(mergeStates(state, normRemote(snap.data())));
+      return push();
+    }).then(function () { setMsg('Sincronizado ✓', 'ok'); })
+      .catch(function (e) { setMsg(fbError(e), 'bad'); });
+  }
+
+  function cloudPush() {
+    if (!cloud.user || !cloud.mods) return;
+    clearTimeout(cloud.timer);
+    cloud.timer = setTimeout(function () {
+      push().then(function () { setMsg('Sincronizado ✓', 'ok'); })
+            .catch(function (e) { setMsg(fbError(e), 'bad'); });
+    }, 1500);
+  }
+
+  function initCloud() {
+    if (!cloud.cfg || cloud.initDone) return;
+    loadFirebase().then(function (mods) {
+      cloud.initDone = true; cloud.offline = false;
+      mods.auth.onAuthStateChanged(cloud.auth, function (u) {
+        cloud.user = u || null;
+        try {
+          if (u) { localStorage.setItem(APP.id + '-cuenta', u.email || ''); localStorage.setItem(APP.id + '-correo', u.email || ''); }
+          else localStorage.removeItem(APP.id + '-cuenta');
+        } catch (e) {}
+        if (u) pull(); else setMsg('');
+        refreshData();
+        updateSyncBar();
+      });
+    }).catch(function () {
+      cloud.offline = true;
+      setMsg('Sin conexión: tu progreso se guarda en este móvil y se sincronizará cuando haya internet.');
+      refreshData();
     });
   }
-  $("b-exp").onclick = () => exportProgress(false);
-  $("b-imp").onclick = () => $("b-file").click();
-  $("b-file").onchange = e => { if (e.target.files && e.target.files[0]) importProgress(e.target.files[0]); };
-  $("b-auto").onclick = () => { lsSet(AUTO_KEY, autoOn() ? "off" : "on"); $("b-auto").textContent = "Copia automática al abrir: " + (autoOn() ? "activada" : "desactivada"); };
-}
 
-document.getElementById("syncbar").onclick = openSync;
-render();
-fbInit();
-window.addEventListener("online", () => { updateBar(); if (!FB.ready) fbInit(); });
-setTimeout(autoBackup, 2500);
+  function syncCard() {
+    var h = '<div class="sync"><h3>Sincronización</h3>';
+    if (!cloud.cfg) {
+      h += '<p class="muted">Aún no está activada: falta pegar la configuración de tu proyecto de Firebase en el archivo firebase-config.js (mira LEEME.md). Mientras tanto, tu progreso se guarda en este móvil.</p>';
+    } else if (cloud.user) {
+      h += '<p>Sesión iniciada con <b>' + esc(cloud.user.email || '') + '</b>.</p>' +
+           '<button class="btn" id="s-now">Sincronizar ahora</button>' +
+           '<button class="btn ghost" id="s-logout">Cerrar sesión</button>';
+    } else if (!cloud.initDone && accountEmail()) {
+      h += '<p>Cuenta guardada: <b>' + esc(accountEmail()) + '</b>.</p><p class="muted">' +
+           (cloud.offline ? 'Ahora no hay conexión: tu progreso está a salvo en este móvil y se sincronizará al volver.' : 'Conectando…') + '</p>';
+    } else {
+      h += '<p class="muted">Entra con tu correo para guardar tu progreso y usarlo en otros móviles. Solo tendrás que hacerlo una vez en cada dispositivo.</p>' +
+           '<form id="s-form" autocomplete="on">' +
+           '<input type="email" id="s-email" name="email" placeholder="Correo electrónico" value="' + esc(lastEmail()) + '" autocomplete="username" autocapitalize="none" spellcheck="false">' +
+           '<input type="password" id="s-pass" name="password" placeholder="Contraseña (mínimo 6 caracteres)" autocomplete="current-password">' +
+           '<button class="btn" id="s-login" type="submit">Entrar</button>' +
+           '<button class="btn ghost" id="s-signup" type="button">Crear cuenta nueva</button>' +
+           '<button class="btn ghost" id="s-forgot" type="button">Olvidé mi contraseña</button>' +
+           '</form>';
+    }
+    h += '<p class="sync-msg" id="s-msg">' + esc(cloud.msg || '') + '</p>';
+    h += '<h3 style="margin-top:28px">Copia de seguridad</h3>' +
+         '<p class="muted">El archivo se llama «Italiano básico 1» seguido de la fecha (aaaammdd). Con la copia automática, al abrir la app se descarga una al día si ya has avanzado.</p>' +
+         '<button class="btn ghost" id="b-export">Descargar mi progreso</button>' +
+         '<button class="btn ghost" id="b-import">Cargar un archivo de progreso</button>' +
+         '<button class="btn ghost" id="b-auto">Copia automática al abrir: ' + (autoOn() ? 'activada' : 'desactivada') + '</button>' +
+         '<input type="file" id="b-file" accept=".json,application/json" hidden>';
+    h += '<p class="sync-msg" id="b-msg"></p>';
+    h += '<h3 style="margin-top:28px">Borrar</h3>' +
+         '<p class="muted">Borra tu progreso en este móvil y, si estás sincronizado, también en la nube. Antes se descarga una copia.</p>' +
+         '<button class="btn ghost" id="reset">Borrar mi progreso</button>';
+    return h + '</div>';
+  }
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(() => {}); });
-}
+  function doAuth(kind) {
+    var email = ($('s-email').value || '').trim(), pass = $('s-pass').value || '';
+    if (!email || !pass) { setMsg('Escribe tu correo y tu contraseña.', 'bad'); return; }
+    setMsg('Un momento…');
+    loadFirebase().then(function (m) {
+      return kind === 'signup'
+        ? m.auth.createUserWithEmailAndPassword(cloud.auth, email, pass)
+        : m.auth.signInWithEmailAndPassword(cloud.auth, email, pass);
+    }).catch(function (e) { setMsg(fbError(e), 'bad'); });
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    if (t.closest('#syncbar')) { show('datos'); return; }
+    if (t.closest('#s-signup')) { doAuth('signup'); return; }
+    if (t.closest('#s-now')) { pull(); return; }
+    if (t.closest('#s-logout')) {
+      cloud.mods.auth.signOut(cloud.auth).then(function () { setMsg('Sesión cerrada.'); });
+      return;
+    }
+    if (t.closest('#s-forgot')) {
+      var email = ($('s-email').value || '').trim();
+      if (!email) { setMsg('Escribe tu correo y vuelve a pulsar este botón.', 'bad'); return; }
+      loadFirebase().then(function (m) { return m.auth.sendPasswordResetEmail(cloud.auth, email); })
+        .then(function () { setMsg('Te hemos enviado un correo para cambiar la contraseña.', 'ok'); })
+        .catch(function (err) { setMsg(fbError(err), 'bad'); });
+    }
+  });
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.id === 's-form') { e.preventDefault(); doAuth('login'); }
+  });
+  /* ---------- Copia de seguridad en archivo ---------- */
+  var FILE_NAME = 'Italiano básico 1';
+  var AUTO_KEY = APP.id + '-copia-auto', LAST_KEY = APP.id + '-copia-ultima';
+  function z2(n) { return (n < 10 ? '0' : '') + n; }
+  function dayCompact() { var d = new Date(); return '' + d.getFullYear() + z2(d.getMonth() + 1) + z2(d.getDate()); }
+  function dayStamp() { var d = new Date(); return d.getFullYear() + '-' + z2(d.getMonth() + 1) + '-' + z2(d.getDate()); }
+  function timeStamp() { var d = new Date(); return z2(d.getHours()) + '-' + z2(d.getMinutes()); }
+  function autoOn() { try { return localStorage.getItem(AUTO_KEY) !== 'off'; } catch (e) { return true; } }
+  function exportProgress(auto) {
+    var data = { app: APP.id, version: 1, exportedAt: new Date().toISOString(),
+                 state: { cur: state.cur, best: state.best, passed: state.passed, known: state.known,
+                          epoch: state.epoch || 0, updatedAt: state.updatedAt || Date.now() } };
+    try {
+      var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = FILE_NAME + ' ' + dayCompact() + '.json';
+      document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      if (!auto) setMsg('Archivo descargado ✓', 'ok', true);
+      return true;
+    } catch (e) { if (!auto) setMsg('No se pudo crear el archivo.', 'bad', true); return false; }
+  }
+  /* Al abrir la app: una copia al día, solo si ya hay progreso y la opción está activada */
+  function autoBackup() {
+    try {
+      if (!autoOn()) return;
+      var has = (state.cur || 0) > 0 || Object.keys(state.known || {}).length > 0 || Object.keys(state.passed || {}).length > 0;
+      if (!has) return;
+      var today = dayStamp();
+      if (localStorage.getItem(LAST_KEY) === today) return;
+      if (exportProgress(true)) localStorage.setItem(LAST_KEY, today);
+    } catch (e) {}
+  }
+  function importProgress(file) {
+    if (!file) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var d = JSON.parse(r.result);
+        if (!d || d.app !== APP.id || !d.state) { setMsg('Ese archivo no es de esta app.', 'bad', true); return; }
+        var m = d.state;
+        applyState({ cur: m.cur || 0, best: m.best || {}, passed: m.passed || {}, known: m.known || {},
+                     epoch: m.epoch || 0, updatedAt: Date.now() });
+        setMsg('Progreso cargado ✓', 'ok', true);
+      } catch (e) { setMsg('No se pudo leer el archivo.', 'bad', true); }
+    };
+    r.readAsText(file);
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    if (t.closest('#b-export')) { exportProgress(false); return; }
+    if (t.closest('#b-import')) { var f = $('b-file'); if (f) f.click(); return; }
+    var au = t.closest('#b-auto');
+    if (au) {
+      try { localStorage.setItem(AUTO_KEY, autoOn() ? 'off' : 'on'); } catch (err) {}
+      au.textContent = 'Copia automática al abrir: ' + (autoOn() ? 'activada' : 'desactivada');
+      return;
+    }
+  });
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'b-file') { importProgress(e.target.files && e.target.files[0]); e.target.value = ''; }
+  });
+
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && cloud.user) pull(); });
+  window.addEventListener('online', initCloud);
+
+  /* ---------- Inicio ---------- */
+  renderLesson();
+  updateChip();
+  updateSyncBar();
+  initCloud();
+  setTimeout(autoBackup, 2500);
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+})();
 </script>
 </body>
 </html>
