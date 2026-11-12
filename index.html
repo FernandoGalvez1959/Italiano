@@ -67,10 +67,15 @@ p{margin:.5rem 0}
 .lbl{display:block;font-weight:600;margin:.4rem 0 .2rem}
 .msg{min-height:1.5rem;margin:.6rem 0;font-weight:600}
 .stack .btn{width:100%;margin-bottom:.6rem}
+.syncbar{display:block;position:sticky;top:0;z-index:5;width:100%;font:inherit;font-size:.85rem;font-weight:600;text-align:center;padding:.55rem .8rem;border:0;border-bottom:2px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;min-height:2.5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.syncbar.ok{background:var(--okbg);color:var(--ok)}
+.syncbar[hidden]{display:none}
+.syncbar:focus-visible{outline:3px solid var(--tomato);outline-offset:-3px}
 @media (prefers-reduced-motion: no-preference){.bar i{transition:width .4s}}
 </style>
 </head>
 <body>
+<button type="button" id="syncbar" class="syncbar" hidden></button>
 <main id="app"></main>
 
 <script src="firebase-config.js"></script>
@@ -431,6 +436,7 @@ function toast(m) {
 function go(view, extra) { Object.assign(st, { view }, extra || {}); render(); window.scrollTo(0, 0); }
 
 function render() {
+  updateBar();
   if (st.view === "home") return home();
   if (st.view === "lesson") return lesson();
   if (st.view === "quiz") return quiz();
@@ -458,7 +464,7 @@ function home() {
   document.getElementById("fm").onclick = () => { fs = Math.max(16, fs - 2); applyFs(); };
   document.getElementById("fp").onclick = () => { fs = Math.min(28, fs + 2); applyFs(); };
   document.getElementById("rs").onclick = () => { if (confirm("¿Borrar todo el progreso?")) { progress = {}; save(); render(); } };
-  document.getElementById("sy").onclick = () => { go("sync"); fbInit().then(() => { if (st.view === "sync") render(); }); };
+  document.getElementById("sy").onclick = openSync;
 }
 
 function lesson() {
@@ -526,11 +532,30 @@ function result() {
 }
 
 /* ====================== SINCRONIZACIÓN (Firebase) ====================== */
-const FB = { p: null, ready: false, error: false, user: null, auth: null, db: null, au: null, fs: null };
+const FB = { p: null, ready: false, error: false, initDone: false, user: null, auth: null, db: null, au: null, fs: null };
+const K_ACC = "italiano-a1-cuenta", K_MAIL = "italiano-a1-email";
+function lsGet(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }
+function lsSet(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
+function storedAccount() { return lsGet(K_ACC); }
 function fbConfigured() {
   const c = window.FIREBASE_CONFIG;
   return !!(c && c.apiKey && String(c.apiKey).indexOf("PEGA") !== 0 && c.projectId && String(c.projectId).indexOf("PEGA") !== 0);
 }
+function barInfo() {
+  if (!fbConfigured()) return null;
+  if (FB.user) return { t: "☁ Sincronizado · " + FB.user.email, cls: "ok" };
+  const em = storedAccount();
+  if (em && !FB.initDone) return { t: (FB.error || !navigator.onLine ? "☁ Sin conexión · " : "☁ Conectando… · ") + em, cls: "" };
+  return { t: "☁ Sin sincronizar · toca para entrar", cls: "" };
+}
+function updateBar() {
+  const b = document.getElementById("syncbar"); if (!b) return;
+  const i = barInfo();
+  if (!i) { b.hidden = true; return; }
+  b.hidden = false; b.className = "syncbar" + (i.cls ? " " + i.cls : ""); b.textContent = i.t;
+}
+function openSync() { go("sync"); fbInit().then(() => { if (st.view === "sync") render(); }); }
+
 function fbInit() {
   if (!fbConfigured()) return Promise.resolve();
   if (FB.p) return FB.p;
@@ -542,11 +567,16 @@ function fbInit() {
       FB.au = au; FB.fs = fsm; FB.auth = au.getAuth(app); FB.db = fsm.getFirestore(app);
       FB.ready = true; FB.error = false;
       au.onAuthStateChanged(FB.auth, async u => {
-        FB.user = u;
-        if (u) await fbPull();
+        FB.user = u; FB.initDone = true;
+        if (u) { lsSet(K_ACC, u.email); lsSet(K_MAIL, u.email); await fbPull(); }
+        else lsSet(K_ACC, "");
+        updateBar();
         if (st.view === "home" || st.view === "sync") render();
       });
-    } catch (e) { FB.error = true; FB.p = null; }
+    } catch (e) {
+      FB.error = true; FB.p = null; updateBar();
+      if (st.view === "sync") render();
+    }
   })();
   return FB.p;
 }
@@ -565,6 +595,60 @@ async function fbPush() {
   if (!FB.ready || !FB.user) return;
   try { await FB.fs.setDoc(FB.fs.doc(FB.db, "usuarios", FB.user.uid), { progreso: progress, actualizado: FB.fs.serverTimestamp() }); } catch (e) {}
 }
+
+/* ----- Copia de seguridad en archivo ----- */
+const FILE_NAME = "Italiano-Basico-A1";
+const AUTO_KEY = "italiano-a1-copia-auto", LAST_KEY = "italiano-a1-copia-ultima";
+const z2 = n => (n < 10 ? "0" : "") + n;
+function dayStamp() { const d = new Date(); return d.getFullYear() + "-" + z2(d.getMonth() + 1) + "-" + z2(d.getDate()); }
+function timeStamp() { const d = new Date(); return z2(d.getHours()) + "-" + z2(d.getMinutes()); }
+function autoOn() { try { return localStorage.getItem(AUTO_KEY) !== "off"; } catch (e) { return true; } }
+function bmsg(t) { const m = document.getElementById("bmsg"); if (m) m.textContent = t; }
+function exportProgress(auto) {
+  try {
+    const data = { app: "italiano-a1", version: 1, exportedAt: new Date().toISOString(), progreso: progress };
+    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = FILE_NAME + "_" + dayStamp() + "_" + timeStamp() + ".json";
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    if (!auto) bmsg("Archivo descargado ✓");
+    return true;
+  } catch (e) { if (!auto) bmsg("No se pudo crear el archivo."); return false; }
+}
+/* Al abrir la app: una copia al día, solo si ya hay progreso y la opción está activada */
+function autoBackup() {
+  try {
+    if (!autoOn()) return;
+    if (!Object.keys(progress).length) return;
+    const today = dayStamp();
+    if (lsGet(LAST_KEY) === today) return;
+    if (exportProgress(true)) lsSet(LAST_KEY, today);
+  } catch (e) {}
+}
+function importProgress(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    let ok = false;
+    try {
+      const d = JSON.parse(r.result);
+      if (d && d.app === "italiano-a1" && d.progreso && typeof d.progreso === "object") {
+        for (const k in d.progreso) {
+          const v = Number(d.progreso[k]);
+          if (/^[0-7]$/.test(k) && v >= 0 && v <= 6 && !(progress[k] >= v)) progress[k] = v;
+        }
+        save(); ok = true;
+      }
+    } catch (e) {}
+    render();
+    bmsg(ok ? "Progreso cargado ✓" : "Ese archivo no es de esta app.");
+  };
+  r.onerror = () => bmsg("No se pudo leer el archivo.");
+  r.readAsText(file);
+}
+
+/* ----- Vista Sincronizar ----- */
 function msg(t) { const m = document.getElementById("msg"); if (m) m.textContent = t; }
 function errEs(e) {
   const c = (e && e.code) || "";
@@ -578,37 +662,50 @@ function errEs(e) {
   return "No se pudo completar. Revisa los datos e inténtalo de nuevo.";
 }
 function syncView() {
+  const saved = storedAccount();
   let h = `<div class="top"><button class="btn alt small" id="back">‹ Lecciones</button></div><h1>Sincronizar</h1>`;
   if (!fbConfigured()) {
     h += `<div class="card"><p>La sincronización aún no está activada. Falta pegar los datos de Firebase en el archivo <b>firebase-config.js</b>.</p></div>`;
+  } else if (FB.user) {
+    h += `<div class="card"><p>Sincronizado con <b>${esc(FB.user.email)}</b>.</p>
+      <p class="prog">Tu progreso se guarda en la nube y aparece en cualquier dispositivo donde entres con esta cuenta. En este móvil no tendrás que volver a escribir la contraseña.</p></div>
+      <div class="msg" id="msg" role="status"></div>
+      <div class="stack"><button class="btn" id="now">Sincronizar ahora</button><button class="btn alt" id="out">Cerrar sesión</button></div>`;
+  } else if (saved && !FB.initDone) {
+    h += `<div class="card"><p>Cuenta guardada: <b>${esc(saved)}</b>.</p>
+      <p class="prog">${FB.error || !navigator.onLine ? "Ahora no hay conexión: tu progreso está a salvo en este móvil y se sincronizará al volver." : "Conectando…"}</p></div>
+      ${FB.error ? '<button class="btn" id="retry" style="width:100%">Reintentar</button>' : ""}`;
   } else if (FB.error) {
     h += `<div class="card"><p>No se pudo conectar con el servicio. Comprueba que tienes internet.</p></div><button class="btn" id="retry" style="width:100%">Reintentar</button>`;
   } else if (!FB.ready) {
     h += `<div class="card"><p>Conectando…</p></div>`;
-  } else if (FB.user) {
-    h += `<div class="card"><p>Sincronizado con <b>${esc(FB.user.email)}</b>.</p>
-      <p class="prog">Tu progreso se guarda en la nube y aparece en cualquier dispositivo donde entres con esta cuenta.</p></div>
-      <div class="msg" id="msg" role="status"></div>
-      <div class="stack"><button class="btn" id="now">Sincronizar ahora</button><button class="btn alt" id="out">Cerrar sesión</button></div>`;
   } else {
-    h += `<p>Entra con tu correo para guardar tu progreso en la nube y verlo en todos tus dispositivos. Si es la primera vez, pulsa <b>Crear cuenta</b>.</p>
+    h += `<p>Entra con tu correo para guardar tu progreso en la nube y verlo en todos tus dispositivos. Solo tendrás que hacerlo una vez en cada móvil. Si es la primera vez, pulsa <b>Crear cuenta</b>.</p>
+      <form id="s-form" autocomplete="on">
       <label class="lbl" for="em">Correo electrónico</label>
-      <input class="in" id="em" type="email" autocomplete="email" inputmode="email">
+      <input class="in" id="em" name="email" type="email" autocomplete="username" autocapitalize="none" spellcheck="false" inputmode="email" value="${esc(lsGet(K_MAIL))}">
       <label class="lbl" for="pw">Contraseña (mínimo 6 caracteres)</label>
-      <input class="in" id="pw" type="password" autocomplete="current-password">
+      <input class="in" id="pw" name="password" type="password" autocomplete="current-password">
       <div class="msg" id="msg" role="status"></div>
-      <div class="stack"><button class="btn" id="in">Entrar</button><button class="btn alt" id="up">Crear cuenta</button><button class="btn alt small" id="fg">He olvidado la contraseña</button></div>`;
+      <div class="stack"><button class="btn" id="in" type="submit">Entrar</button><button class="btn alt" id="up" type="button">Crear cuenta</button><button class="btn alt small" id="fg" type="button">He olvidado la contraseña</button></div>
+      </form>`;
   }
+  h += `<h2>Copia de seguridad en archivo</h2>
+    <p class="prog">El archivo se llama «${FILE_NAME}» con la fecha y la hora. Con la copia automática, al abrir la app se descarga una al día si ya has avanzado.</p>
+    <div class="msg" id="bmsg" role="status"></div>
+    <div class="stack"><button class="btn alt" id="b-exp">Descargar copia ahora</button><button class="btn alt" id="b-imp">Cargar un archivo de copia</button>
+    <button class="btn alt" id="b-auto">Copia automática al abrir: ${autoOn() ? "activada" : "desactivada"}</button></div>
+    <input type="file" id="b-file" accept="application/json,.json" hidden>`;
   app.innerHTML = h;
-  document.getElementById("back").onclick = () => go("home");
   const $ = id => document.getElementById(id);
+  $("back").onclick = () => go("home");
   const run = async fn => { msg("Un momento…"); try { await fn(); } catch (e) { msg(errEs(e)); } };
-  if ($("retry")) $("retry").onclick = () => { FB.error = false; fbInit().then(() => { if (st.view === "sync") render(); }); };
+  if ($("retry")) $("retry").onclick = () => { FB.error = false; FB.p = null; updateBar(); fbInit().then(() => { if (st.view === "sync") render(); }); };
   if ($("now")) $("now").onclick = () => run(async () => { await fbPull(); msg("Sincronizado ✓"); });
-  if ($("out")) $("out").onclick = () => run(() => FB.au.signOut(FB.auth));
-  if ($("in")) {
+  if ($("out")) $("out").onclick = () => run(async () => { lsSet(K_ACC, ""); await FB.au.signOut(FB.auth); });
+  if ($("s-form")) {
     const E = () => $("em").value.trim(), P = () => $("pw").value;
-    $("in").onclick = () => run(() => FB.au.signInWithEmailAndPassword(FB.auth, E(), P()));
+    $("s-form").onsubmit = e => { e.preventDefault(); run(() => FB.au.signInWithEmailAndPassword(FB.auth, E(), P())); };
     $("up").onclick = () => run(() => FB.au.createUserWithEmailAndPassword(FB.auth, E(), P()));
     $("fg").onclick = () => run(async () => {
       if (!E()) { msg("Escribe tu correo arriba y vuelve a pulsar."); return; }
@@ -616,11 +713,17 @@ function syncView() {
       msg("Te hemos enviado un correo para cambiar la contraseña.");
     });
   }
+  $("b-exp").onclick = () => exportProgress(false);
+  $("b-imp").onclick = () => $("b-file").click();
+  $("b-file").onchange = e => { if (e.target.files && e.target.files[0]) importProgress(e.target.files[0]); };
+  $("b-auto").onclick = () => { lsSet(AUTO_KEY, autoOn() ? "off" : "on"); $("b-auto").textContent = "Copia automática al abrir: " + (autoOn() ? "activada" : "desactivada"); };
 }
 
+document.getElementById("syncbar").onclick = openSync;
 render();
 fbInit();
-window.addEventListener("online", () => { if (!FB.ready) fbInit(); });
+window.addEventListener("online", () => { updateBar(); if (!FB.ready) fbInit(); });
+setTimeout(autoBackup, 2500);
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(() => {}); });
